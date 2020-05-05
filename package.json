@@ -1,0 +1,31 @@
+{
+  "name": "video-roulette-v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles",
+    "test:dev": "npm run test -- --watch",
+    "build": "webpack src/index.js -o dist/main.js",
+    "build:dev": "npm run build -- --watch --mode=development",
+    "start:dev": "JWT=foobar nodemon server --ignore dist/ --ignore src/ & npm run build:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^25.2.7",
+    "pg": "^8.0.0"
+  }
+}
