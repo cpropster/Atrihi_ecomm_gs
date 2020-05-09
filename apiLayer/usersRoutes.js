@@ -1,49 +1,91 @@
 const express = require("express");
-const {
-  createUser,
-  readUsers,
-  updateUser,
-  deleteUser,
-} = require("../dataLayer/modelsIndex");
+const db = require("../dataLayer");
+const jwt = require("jwt-simple");
+const models = db.models;
 
 const usersRouter = express.Router();
 
-usersRouter.post("/", async (req, res, next) => {
+const isLoggedIn = (req, res, next) => {
+  if (!req.user) {
+    const error = Error("not authorized");
+    error.status = 401;
+    return next(error);
+  }
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.user.role !== "ADMIN") {
+    return next(Error("not authorized"));
+  }
+  next();
+};
+
+usersRouter.use((req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return next();
+  }
+  db.findUserFromToken(token)
+    .then((auth) => {
+      req.user = auth;
+      next();
+    })
+    .catch((ex) => {
+      const error = Error("not authorized");
+      error.status = 401;
+      next(error);
+    });
+});
+
+usersRouter.post("/api/auth", (req, res, next) => {
+  db.authenticate(req.body)
+    .then((token) => res.send({ token }))
+    .catch(() => {
+      const error = Error("not authorized");
+      error.status = 401;
+      next(error);
+    });
+});
+
+usersRouter.get("/api/auth", isLoggedIn, (req, res, next) => {
+  res.send(req.user);
+});
+
+usersRouter.post("/api/users", async (req, res, next) => {
   try {
-    const data = await createUser(req.body);
-    res.send(data);
-    console.log(data);
-    res.status(200).send(data);
+    const user = await db.models.users.create({ ...req.body, role: "USER" });
+    const token = jwt.encode({ id: user.id }, process.env.JWT);
+    delete user.password;
+    //need the delete for security purposes
+    res.send({ user, token });
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.get("/", async (req, res, next) => {
+usersRouter.put("/api/users/:id", async (req, res, next) => {
   try {
-    const data = await readUsers();
-    res.status(200).send(data);
+    const user = await models.users.update(req.body);
+    delete user.password;
+    res.send({ user });
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.put("/", async (req, res, next) => {
-  try {
-    const data = updateUser(req.body);
-    res.status(200).send(data);
-  } catch (error) {
-    next(error);
-  }
+Object.keys(models).forEach((key) => {
+  usersRouter.get(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+    models[key]
+      .read({ user: req.user })
+      .then((items) => res.send(items))
+      .catch(next);
+  });
+  usersRouter.post(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+    models[key]
+      .create(req.body)
+      .then((items) => res.send(items))
+      .catch(next);
+  });
 });
-
-usersRouter.delete("/:username", async (req, res, next) => {
-  try {
-    await deleteUser(req.params.username);
-    res.sendStatus(201);
-  } catch (error) {
-    next(error);
-  }
-});
-
 module.exports = { usersRouter };

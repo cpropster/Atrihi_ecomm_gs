@@ -1,13 +1,5 @@
-//Import path module
-const path = require("path");
-
 module.exports = {
   // Resolve to output directory and set file
-  output: {
-    path: path.resolve("dist/assets"),
-    filename: "bundle.js",
-    publicPath: "assets",
-  },
   module: {
     rules: [
       {

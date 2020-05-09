@@ -5,5 +5,4 @@ const apiRouter = express.Router();
 
 apiRouter.use("/users", usersRouter);
 
-
 module.exports = { apiRouter };

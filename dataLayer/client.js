@@ -1,7 +1,9 @@
-const pg = require("pg");
+const { Client } = require("pg");
 
-const client = new pg.Client(process.env.DATABASE_URL || "postgres://localhost/vid_roulette");
+const client = new Client(
+  process.env.DATABASE_URL || "postgres://localhost/aiko_ecomm"
+);
+
 client.connect();
 
-module.exports = { client };
-
+module.exports = client;
