@@ -38,7 +38,7 @@ usersRouter.use((req, res, next) => {
     });
 });
 
-usersRouter.post("/api/auth", (req, res, next) => {
+usersRouter.post("/auth", (req, res, next) => {
   db.authenticate(req.body)
     .then((token) => res.send({ token }))
     .catch(() => {
@@ -48,11 +48,11 @@ usersRouter.post("/api/auth", (req, res, next) => {
     });
 });
 
-usersRouter.get("/api/auth", isLoggedIn, (req, res, next) => {
+usersRouter.get("/auth", isLoggedIn, (req, res, next) => {
   res.send(req.user);
 });
 
-usersRouter.post("/api/users", async (req, res, next) => {
+usersRouter.post("/", async (req, res, next) => {
   try {
     const user = await db.models.users.create({ ...req.body, role: "USER" });
     const token = jwt.encode({ id: user.id }, process.env.JWT);
@@ -64,7 +64,7 @@ usersRouter.post("/api/users", async (req, res, next) => {
   }
 });
 
-usersRouter.put("/api/users/:id", async (req, res, next) => {
+usersRouter.put("/:id", async (req, res, next) => {
   try {
     const user = await models.users.update(req.body);
     delete user.password;
@@ -75,13 +75,13 @@ usersRouter.put("/api/users/:id", async (req, res, next) => {
 });
 
 Object.keys(models).forEach((key) => {
-  usersRouter.get(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+  usersRouter.get(`/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
     models[key]
       .read({ user: req.user })
       .then((items) => res.send(items))
       .catch(next);
   });
-  usersRouter.post(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+  usersRouter.post(`/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
     models[key]
       .create(req.body)
       .then((items) => res.send(items))
