@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import React, { useState, useEffect } from "react";
+import { Route, Redirect, Link, useHistory } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -9,9 +10,10 @@ import {
   Button,
 } from "react-bootstrap";
 import axios from "axios";
-// import Login from "./Login";
-// import CreateAccount from "./CreateAccount";
+import Login from "./Login";
+import CreateAccount from "./CreateAccount";
 // import AccountForm from "./AccountForm";
+import Home from "./Home";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -26,25 +28,26 @@ const headers = () => {
 const App = () => {
   const [auth, setAuth] = useState({});
   const [error, setError] = useState("");
-  const [modal, setModal] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     exchangeTokenForAuth();
   }, []);
 
   const exchangeTokenForAuth = async () => {
-    const response = await axios.get("/api/users/auth", headers());
+    const response = await axios.get("/api/auth", headers());
     setAuth(response.data);
   };
 
   const login = async (credentials) => {
-    const token = (await axios.post("/api/users/auth", credentials)).data.token;
+    const token = (await axios.post("/api/auth", credentials)).data.token;
     window.localStorage.setItem("token", token);
     exchangeTokenForAuth();
   };
 
   const createAccount = async (newUser) => {
     try {
+      console.log("in account ", newUser);
       const response = (await axios.post("/api/users", newUser)).data;
       window.localStorage.setItem("token", response.token);
       setAuth(response.user);
@@ -74,7 +77,12 @@ const App = () => {
     <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/#">
-          <img src="../assets/img/orchid.png" />
+          <img
+            className="rounded-circle"
+            src="../assets/img/orchid.png"
+            width="40"
+            height="40"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -92,11 +100,42 @@ const App = () => {
             </NavDropdown>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            {!auth.id ? (
+              <>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                />
+                <Button variant="outline-success">Search</Button>
+                &nbsp;&nbsp;&nbsp;
+                <Login login={login} />
+                &nbsp;/&nbsp;
+                <CreateAccount createAccount={createAccount} />{" "}
+              </>
+            ) : (
+              <div>
+                Welcome&nbsp;
+                <a className="mr-3" href="">
+                  {auth.firstName}
+                </a>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                />
+                <Button variant="outline-success">Search</Button>
+                <Button variant="primary" onClick={logout}>
+                  Logout
+                </Button>
+              </div>
+            )}
           </Form>
         </Navbar.Collapse>
       </Navbar>
+      <div className="container h-100 mw-100">
+        <Home />
+      </div>
     </div>
   );
 };

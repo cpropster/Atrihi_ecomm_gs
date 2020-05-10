@@ -12,12 +12,11 @@ const sync = async () => {
 
   CREATE TABLE users(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    username VARCHAR(100) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE CHECK (char_length(username) > 0),
     "firstName" VARCHAR(100) NOT NULL,
     "lastName" VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(20) DEFAULT 'USER',
-    CHECK (char_length(username) > 0)
+    role VARCHAR(20) DEFAULT 'USER'
   );`;
   await client.query(sql);
 
