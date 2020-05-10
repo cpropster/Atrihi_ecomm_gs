@@ -8,6 +8,7 @@ import {
   Form,
   FormControl,
   Button,
+  NavbarBrand,
 } from "react-bootstrap";
 import axios from "axios";
 import Login from "./Login";
@@ -84,6 +85,7 @@ const App = () => {
             height="40"
           />
         </Navbar.Brand>
+        <Navbar.Brand>AW</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -99,38 +101,40 @@ const App = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form inline>
-            {!auth.id ? (
-              <>
+          {!auth.id ? (
+            <>
+              <Form inline>
                 <FormControl
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
                 />
                 <Button variant="outline-success">Search</Button>
-                &nbsp;&nbsp;&nbsp;
-                <Login login={login} />
-                &nbsp;/&nbsp;
-                <CreateAccount createAccount={createAccount} />{" "}
-              </>
-            ) : (
+              </Form>
+              <Login login={login} />
+              <CreateAccount createAccount={createAccount} />
+            </>
+          ) : (
+            <>
               <div>
                 Welcome&nbsp;
                 <a className="mr-3" href="">
                   {auth.firstName}
                 </a>
+              </div>
+              <Form inline>
                 <FormControl
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
                 />
                 <Button variant="outline-success">Search</Button>
-                <Button variant="primary" onClick={logout}>
+                <Nav.Link variant="primary" onClick={logout}>
                   Logout
-                </Button>
-              </div>
-            )}
-          </Form>
+                </Nav.Link>
+              </Form>
+            </>
+          )}
         </Navbar.Collapse>
       </Navbar>
       <div className="container h-100 mw-100">

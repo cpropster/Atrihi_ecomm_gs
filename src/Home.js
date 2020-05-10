@@ -6,41 +6,23 @@ const Home = () => {
     <Carousel>
       <Carousel.Item>
         <img
-          className="d-block w-100"
-          src="../assets/img/ww-website-banner.jpg"
+          className="w-100"
+          src="../assets/img/gift1.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3 className="text-danger">First slide label</h3>
-          <p className="text-danger">
-            Nulla vitae elit libero, a pharetra augue mollis interdum.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <div className="row">
+            <div className="col-md-6">
+              <h3 className="h1 text-left text-dark">Why Corporate Gifting?</h3>
+              <p className="h3 text-left text-dark">
+                Leave A Good Impression With A Little Something Extra.
+                <br />
+                <br />
+                Show Your Clients. Show Your Employees. Show Your Friends That
+                You Care.
+              </p>
+            </div>
+          </div>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

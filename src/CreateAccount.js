@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, FormControl } from "react-bootstrap";
+import { Modal, Button, Form, FormControl, Nav } from "react-bootstrap";
 
 const CreateAccount = ({ createAccount }) => {
   const [firstName, setFirstName] = useState("");
@@ -24,53 +24,51 @@ const CreateAccount = ({ createAccount }) => {
       });
   };
   return (
-    <div>
-      <>
-        <a onClick={handleShow}>Create Account</a>
-        <Modal show={modal} onHide={handleClose}>
-          <Form onSubmit={onSubmit}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create Your Account</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {error}
-              <FormControl
-                type="text"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(ev) => setFirstName(ev.target.value)}
-              />
-              <br />
-              <FormControl
-                type="text"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(ev) => setLastName(ev.target.value)}
-              />
-              <br />
-              <FormControl
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(ev) => setUsername(ev.target.value)}
-              />
-              <br />
-              <FormControl
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(ev) => setPassword(ev.target.value)}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="primary" onClick={onSubmit}>
-                Create Account
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal>
-      </>
-    </div>
+    <>
+      <Nav.Link onClick={handleShow}>Sign Up</Nav.Link>
+      <Modal show={modal} onHide={handleClose}>
+        <Form onSubmit={onSubmit}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create Your Account</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {error}
+            <FormControl
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(ev) => setFirstName(ev.target.value)}
+            />
+            <br />
+            <FormControl
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(ev) => setLastName(ev.target.value)}
+            />
+            <br />
+            <FormControl
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(ev) => setUsername(ev.target.value)}
+            />
+            <br />
+            <FormControl
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(ev) => setPassword(ev.target.value)}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={onSubmit}>
+              Create Account
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </>
   );
 };
 
