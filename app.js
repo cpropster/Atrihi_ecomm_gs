@@ -107,17 +107,37 @@ Object.keys(models).forEach((key) => {
   });
 });
 
-app.use((req, res, next) => {
-  const error = {
-    message: `page not found ${req.url} for ${req.method}`,
-    status: 404,
-  };
-  next(error);
-});
-
-app.use((err, req, res, next) => {
-  console.log(err.status, err.message);
-  res.status(err.status || 500).send({ message: err.message });
-});
+const mailjet = require("node-mailjet").connect(
+  "b26f0356a86c8bff2405e336399526fb",
+  "2953e3a43e35efe4d24f9e6b430aa02f"
+);
+// const request = mailjet.post("send", { version: "v3.1" }).request({
+//   Messages: [
+//     {
+//       From: {
+//         Email: "cpropster@gmail.com",
+//         Name: "chrys",
+//       },
+//       To: [
+//         {
+//           Email: "cpropster@gmail.com",
+//           Name: "chrys",
+//         },
+//       ],
+//       Subject: "Greetings from Mailjet.",
+//       TextPart: "My first Mailjet email",
+//       HTMLPart:
+//         "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+//       CustomID: "AppGettingStartedTest",
+//     },
+//   ],
+// });
+// request
+//   .then((result) => {
+//     console.log(result.body);
+//   })
+//   .catch((err) => {
+//     console.log(err.statusCode);
+//   });
 
 module.exports = { app, isLoggedIn, isAdmin };

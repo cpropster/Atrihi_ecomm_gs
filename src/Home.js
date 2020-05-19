@@ -1,31 +1,127 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { Container, Row, Col, Image, Figure, Card } from "react-bootstrap";
 
 const Home = () => {
   return (
-    <Carousel>
-      <Carousel.Item>
-        <img
-          className="w-100"
-          src="../assets/img/gift1.jpg"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <div className="row">
-            <div className="col-md-6">
-              <h3 className="h1 text-left text-dark">Why Corporate Gifting?</h3>
-              <p className="h3 text-left text-dark">
-                Leave A Good Impression With A Little Something Extra.
-                <br />
-                <br />
-                Show Your Clients. Show Your Employees. Show Your Friends That
-                You Care.
-              </p>
-            </div>
-          </div>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <>
+      <Row>
+        <Col md={12}>
+          <Image className="mw-100" src="../assets/img/testBanner.jpg" />
+        </Col>
+      </Row>
+      <Container className="mb-5">
+        <Row className="mt-5">
+          <Col md={4} className="border-right">
+            <Figure className="my-auto text-center">
+              <Figure.Image
+                width={171}
+                height={180}
+                alt="171x180"
+                src="holder.js/171x180"
+              />
+              <Figure.Caption>
+                Nulla vitae elit libero, a pharetra augue mollis interdum.
+              </Figure.Caption>
+            </Figure>
+          </Col>
+          <Col md={4} className="border-right">
+            <Figure className="my-auto text-center">
+              <Figure.Image
+                width={171}
+                height={180}
+                alt="171x180"
+                src="holder.js/171x180"
+              />
+              <Figure.Caption>
+                Nulla vitae elit libero, a pharetra augue mollis interdum.
+              </Figure.Caption>
+            </Figure>
+          </Col>
+          <Col md={4}>
+            <Figure className="my-auto text-center">
+              <Figure.Image
+                width={171}
+                height={180}
+                alt="171x180"
+                src="holder.js/171x180"
+              />
+              <Figure.Caption>
+                Nulla vitae elit libero, a pharetra augue mollis interdum.
+              </Figure.Caption>
+            </Figure>
+          </Col>
+        </Row>
+      </Container>
+      <Row className="mb-5">
+        <Col md={12}>
+          <Image className="mw-100" src="../assets/img/testBanner.jpg" />
+        </Col>
+      </Row>
+      <Container className="mb-5">
+        <Row>
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>{" "}
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>{" "}
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>{" "}
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>{" "}
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>
+          <Col sm={2} xs={6}>
+            <Card>
+              <Card.Img
+                id="brand-card"
+                variant="top"
+                src="../assets/img/icon_pencil.png"
+                href="#"
+              />
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

@@ -29,16 +29,50 @@ const headers = () => {
 const App = () => {
   const [auth, setAuth] = useState({});
   const [error, setError] = useState("");
-  const history = useHistory();
+  const [orders, setOrders] = useState([]);
+  const [cart, setCart] = useState({});
+  const [products, setProducts] = useState([]);
+  const [lineItems, setLineItems] = useState([]);
 
-  useEffect(() => {
-    exchangeTokenForAuth();
-  }, []);
+  const history = useHistory();
 
   const exchangeTokenForAuth = async () => {
     const response = await axios.get("/api/auth", headers());
     setAuth(response.data);
   };
+
+  useEffect(() => {
+    exchangeTokenForAuth();
+  }, []);
+
+  useEffect(() => {
+    axios.get("/api/products").then((response) => setProducts(response.data));
+  }, []);
+
+  useEffect(() => {
+    if (auth.id) {
+      const token = window.localStorage.getItem("token");
+      axios.get("/api/getLineItems", headers()).then((response) => {
+        setLineItems(response.data);
+      });
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (auth.id) {
+      axios.get("/api/getCart", headers()).then((response) => {
+        setCart(response.data);
+      });
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (auth.id) {
+      axios.get("/api/getOrders", headers()).then((response) => {
+        setOrders(response.data);
+      });
+    }
+  }, [auth]);
 
   const login = async (credentials) => {
     const token = (await axios.post("/api/auth", credentials)).data.token;
@@ -58,21 +92,74 @@ const App = () => {
     }
   };
 
-  const updateAccount = async (user) => {
-    try {
-      const updated = (await axios.put(`/api/users/${user.id}`, user)).data;
-      setAuth(updated);
-      setError("");
-    } catch (ex) {
-      setError(ex.response.data.message);
-    }
-  };
-
   const logout = () => {
     window.localStorage.removeItem("token");
     history.push("/#");
     setAuth({});
   };
+
+  const createOrder = () => {
+    const token = window.localStorage.getItem("token");
+    axios
+      .post("/api/createOrder", null, headers())
+      .then((response) => {
+        setOrders([response.data, ...orders]);
+        const token = window.localStorage.getItem("token");
+        return axios.get("/api/getCart", headers());
+      })
+      .then((response) => {
+        setCart(response.data);
+      });
+  };
+
+  const addToCart = (product, quantity) => {
+    // see app.js
+    axios
+      .post("/api/addToCart", { productId: product.id, quantity }, headers())
+      .then((response) => {
+        const lineItem = response.data;
+        //console.log("In addToCart: lineItem=", lineItem);
+        const found = lineItems.find(
+          (_lineItem) => _lineItem.id === lineItem.id
+        );
+        if (!found) {
+          // a lineItem for this product for this user does NOT exist
+          // create a new lineItem
+          setLineItems([...lineItems, lineItem]);
+        } else {
+          // a lineItem already exists for this product and user
+          // update the existing lineItem
+          const updatedLineItems = lineItems.map((_lineItem) =>
+            _lineItem.id === lineItem.id ? lineItem : _lineItem
+          );
+          setLineItems(updatedLineItems);
+        }
+      })
+      .then(() => {
+        axios.put(
+          "/api/products",
+          { avail: product.avail, id: product.id },
+          headers()
+        );
+      });
+  };
+
+  const removeFromCart = (lineItemId, product) => {
+    axios
+      .delete(`/api/removeFromCart/${lineItemId}`, headers())
+      .then(() => {
+        setLineItems(
+          lineItems.filter((_lineItem) => _lineItem.id !== lineItemId)
+        );
+      })
+      .then(() => {
+        axios.put(
+          "/api/products",
+          { avail: product.avail, id: product.id },
+          headers()
+        );
+      });
+  }; //end removeFromCart
 
   return (
     <div>
@@ -85,21 +172,17 @@ const App = () => {
             height="40"
           />
         </Navbar.Brand>
-        <Navbar.Brand>AW</Navbar.Brand>
+        <Navbar.Brand>Atrihi Inc.</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/#">Home</Nav.Link>
-            <Nav.Link href="#">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
+            <Nav.Link href="#">About Us</Nav.Link>
+            <NavDropdown title="Brands" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#">All Brands</NavDropdown.Item>
+              <NavDropdown.Item href="#">Tommy Hilfiger</NavDropdown.Item>
+              <NavDropdown.Item href="#">Polo Ralph Lauren</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="#">Contact Us</Nav.Link>
           </Nav>
           {!auth.id ? (
             <>
@@ -137,9 +220,7 @@ const App = () => {
           )}
         </Navbar.Collapse>
       </Navbar>
-      <div className="container h-100 mw-100">
-        <Home />
-      </div>
+      <Home />
     </div>
   );
 };
