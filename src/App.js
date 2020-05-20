@@ -1,20 +1,13 @@
 /* eslint-disable complexity */
 import React, { useState, useEffect } from "react";
-import { Route, Redirect, Link, useHistory } from "react-router-dom";
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-  NavbarBrand,
-} from "react-bootstrap";
+import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 // import AccountForm from "./AccountForm";
+import NavBar from "./NavBar";
 import Home from "./Home";
+import AboutUs from "./AboutUs";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -163,64 +156,16 @@ const App = () => {
 
   return (
     <div>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/#">
-          <img
-            className="rounded-circle"
-            src="../assets/img/orchid.png"
-            width="40"
-            height="40"
-          />
-        </Navbar.Brand>
-        <Navbar.Brand>Atrihi Inc.</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#">About Us</Nav.Link>
-            <NavDropdown title="Brands" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#">All Brands</NavDropdown.Item>
-              <NavDropdown.Item href="#">Tommy Hilfiger</NavDropdown.Item>
-              <NavDropdown.Item href="#">Polo Ralph Lauren</NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#">Contact Us</Nav.Link>
-          </Nav>
-          {!auth.id ? (
-            <>
-              <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-              <Login login={login} />
-              <CreateAccount createAccount={createAccount} />
-            </>
-          ) : (
-            <>
-              <div>
-                Welcome&nbsp;
-                <a className="mr-3" href="">
-                  {auth.firstName}
-                </a>
-              </div>
-              <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                />
-                <Button variant="outline-success">Search</Button>
-                <Nav.Link variant="primary" onClick={logout}>
-                  Logout
-                </Nav.Link>
-              </Form>
-            </>
-          )}
-        </Navbar.Collapse>
-      </Navbar>
-      <Home />
+      <NavBar
+        login={login}
+        logout={logout}
+        auth={auth}
+        createAccount={createAccount}
+      />
+      <Switch>
+        <Route path="/about" render={() => <AboutUs />} />
+        <Route path="/" render={() => <Home />} />
+      </Switch>
     </div>
   );
 };
