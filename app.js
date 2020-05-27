@@ -5,14 +5,12 @@ const path = require("path");
 const db = require("./dataLayer");
 const jwt = require("jwt-simple");
 const models = db.models;
-const { apiRouter } = require("./apiLayer/apiRoutes");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/dist", express.static(path.join(__dirname, "dist")));
 app.use("/assets", express.static(path.join(__dirname, "assets")));
-app.use("/api", apiRouter);
 
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
@@ -107,10 +105,6 @@ Object.keys(models).forEach((key) => {
   });
 });
 
-const mailjet = require("node-mailjet").connect(
-  "b26f0356a86c8bff2405e336399526fb",
-  "2953e3a43e35efe4d24f9e6b430aa02f"
-);
 // const request = mailjet.post("send", { version: "v3.1" }).request({
 //   Messages: [
 //     {

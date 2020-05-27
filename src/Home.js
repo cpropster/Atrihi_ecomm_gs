@@ -59,6 +59,11 @@ const Home = () => {
       </Row>
       <Container className="mb-5">
         <Row>
+          <Col className="text-center" sm={12}>
+            Featured Brands
+          </Col>
+        </Row>
+        <Row>
           <Col sm={2} xs={6}>
             <Card>
               <Card.Img
