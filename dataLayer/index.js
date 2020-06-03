@@ -4,7 +4,7 @@ const faker = require("faker");
 const { authenticate, compare, findUserFromToken, hash } = require("./auth");
 
 const models = require("./modelsIndex");
-const { users, products } = models;
+const { products, users, orders, lineItems } = models;
 
 const {
   getCart,
@@ -24,10 +24,9 @@ const sync = async () => {
   DROP TABLE IF EXISTS addresses;
   DROP TABLE IF EXISTS "lineItems";
   DROP TABLE IF EXISTS orders;
+  DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS products;
   DROP TABLE IF EXISTS brands;
-  DROP TABLE IF EXISTS users;
-  
 
   CREATE TABLE users(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

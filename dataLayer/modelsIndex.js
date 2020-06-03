@@ -1,6 +1,6 @@
 module.exports = {
-  users: require("./usersModel"),
   products: require("./productsModel"),
+  users: require("./usersModel"),
   orders: require("./ordersModel"),
   lineItems: require("./lineItemsModel"),
 };

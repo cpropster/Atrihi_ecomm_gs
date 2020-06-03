@@ -91,13 +91,13 @@ app.put("/api/users/:id", async (req, res, next) => {
 });
 
 Object.keys(models).forEach((key) => {
-  app.get(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+  app.get(`/api/${key}`, (req, res, next) => {
     models[key]
       .read({ user: req.user })
       .then((items) => res.send(items))
       .catch(next);
   });
-  app.post(`/api/${key}`, isLoggedIn, isAdmin, (req, res, next) => {
+  app.post(`/api/${key}`, (req, res, next) => {
     models[key]
       .create(req.body)
       .then((items) => res.send(items))
