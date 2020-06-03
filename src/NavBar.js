@@ -28,7 +28,7 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
           <Nav className="mr-auto">
             <Nav.Link href="/#/about">About Us</Nav.Link>
             <NavDropdown title="Brands" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#">All Brands</NavDropdown.Item>
+              <NavDropdown.Item href="/#/products">All Brands</NavDropdown.Item>
               <NavDropdown.Item href="#">Tommy Hilfiger</NavDropdown.Item>
               <NavDropdown.Item href="#">Polo Ralph Lauren</NavDropdown.Item>
             </NavDropdown>

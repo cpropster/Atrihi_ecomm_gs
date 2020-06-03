@@ -8,6 +8,8 @@ import CreateAccount from "./CreateAccount";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import AboutUs from "./AboutUs";
+import Products from "./Products";
+import ProductDetails from "./ProductDetails";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -163,6 +165,14 @@ const App = () => {
         createAccount={createAccount}
       />
       <Switch>
+        <Route
+          path="/products"
+          render={() => <Products addToCart={addToCart} products={products} />}
+        />
+        <Route
+          path="/product:id"
+          render={(props) => <ProductDetails {...props} />}
+        />
         <Route path="/about" render={() => <AboutUs />} />
         <Route path="/" render={() => <Home />} />
       </Switch>
