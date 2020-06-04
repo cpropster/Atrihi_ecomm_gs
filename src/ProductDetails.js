@@ -4,7 +4,6 @@ import axios from "axios";
 
 const ProductDetails = (props) => {
   const id = props.match.params.id;
-  console.log(id);
   //   const { toggleSearch } = props;
   const [product, setProduct] = useState({});
   const [details, setDetails] = useState({});
@@ -21,7 +20,6 @@ const ProductDetails = (props) => {
         setProduct(
           products.data.reduce((acc, _product) => {
             if (`:${_product.id}` === id) {
-              console.log("i am the product", _product);
               setDetails(_product);
               acc = _product;
             }
@@ -33,19 +31,15 @@ const ProductDetails = (props) => {
   }, []);
 
   return (
-    <div id="product-details-root">
-      <ul className="columnNW alignCenter detail-val">
-        <li className="halfPad detail-val">Name: {details.name}</li>
-        <li className="halfPad detail-val">
-          <img className="productImage" src={details.image} />
+    <div id="">
+      <ul className="">
+        <li className="">Name: {product.name}</li>
+        <li className="">
+          <img className="" src={details.image} />
         </li>
-        <li className="halfPad detail-val">
-          Price: ${Number(details.price).toFixed(2)}
-        </li>
-        <li className="halfPad detail-val">
-          Description: {details.description}
-        </li>
-        <li className="halfPad detail-val">Stock: {details.avail}</li>
+        <li className="">Price: ${Number(details.price).toFixed(2)}</li>
+        <li className="">Description: {details.description}</li>
+        <li className="">Stock: {details.avail}</li>
       </ul>
       <h3>
         <Link to="/products">Back to Store</Link>

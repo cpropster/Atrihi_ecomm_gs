@@ -16,13 +16,12 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/#">
           <img
-            className="rounded-circle"
-            src="../assets/img/orchid.png"
-            width="40"
-            height="40"
+            className=""
+            src="../assets/img/AtrihiLogo.png"
+            width="198"
+            height="60"
           />
         </Navbar.Brand>
-        <Navbar.Brand href="/#">Atrihi Inc.</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
