@@ -44,6 +44,8 @@ const sync = async () => {
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL UNIQUE,
     brand VARCHAR(100) NOT NULL,
+    size VARCHAR(100),
+    color VARCHAR(100),
     description VARCHAR(999),
     price DECIMAL NOT NULL,
     avail INTEGER,
@@ -96,11 +98,13 @@ const sync = async () => {
 
   const _products = {
     foo: {
-      name: "foo",
-      brand: "doo",
-      description: "I am the greatest foo in all the universe",
-      price: 2,
-      avail: 0,
+      name: "Polo",
+      brand: "PoloRalphLauren",
+      size: ["XS", "S", "M", "L", "XL"],
+      color: ["red", "blue", "green"],
+      description: "Standard Ralph Lauren Polo",
+      price: 35.99,
+      avail: 100,
     },
     bar: {
       name: "bar",

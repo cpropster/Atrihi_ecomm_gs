@@ -27,9 +27,35 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
           <Nav className="mr-auto">
             <Nav.Link href="/#/about">About Us</Nav.Link>
             <NavDropdown title="Brands" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/#/products">All Brands</NavDropdown.Item>
-              <NavDropdown.Item href="#">Tommy Hilfiger</NavDropdown.Item>
-              <NavDropdown.Item href="#">Polo Ralph Lauren</NavDropdown.Item>
+              <NavDropdown.Item href="/#/products">
+                All Products
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:PoloRalphLauren">
+                Polo Ralph Lauren
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:TommyHilfiger">
+                Tommy Hilfiger
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Calvin Klein">
+                Calvin Klein
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:DKNY">DKNY</NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Champion">
+                Champion
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Dickies">
+                Dickies
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Pendleton">
+                Pendleton
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Kavu">Kavu</NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:BarefootDreams">
+                Barefoot Dreams
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/#/products:Chums">
+                Chums
+              </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="#">Contact Us</Nav.Link>
           </Nav>

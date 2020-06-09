@@ -2,14 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
-import Login from "./Login";
-import CreateAccount from "./CreateAccount";
-// import AccountForm from "./AccountForm";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import AboutUs from "./AboutUs";
 import Products from "./Products";
 import ProductDetails from "./ProductDetails";
+import BrandProducts from "./BrandProducts";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -93,33 +91,19 @@ const App = () => {
     setAuth({});
   };
 
-  const createOrder = () => {
-    const token = window.localStorage.getItem("token");
-    axios
-      .post("/api/createOrder", null, headers())
-      .then((response) => {
-        setOrders([response.data, ...orders]);
-        const token = window.localStorage.getItem("token");
-        return axios.get("/api/getCart", headers());
-      })
-      .then((response) => {
-        setCart(response.data);
-      });
-  };
-
   const addToCart = (product, quantity) => {
-    // see app.js
     axios
-      .post("/api/addToCart", { productId: product.id, quantity }, headers())
+      .post(
+        "/api/addToCart",
+        { productId: product.id, quantity } /*, headers()*/
+      )
       .then((response) => {
         const lineItem = response.data;
-        //console.log("In addToCart: lineItem=", lineItem);
+        console.log("In addToCart: lineItem=", lineItem);
         const found = lineItems.find(
           (_lineItem) => _lineItem.id === lineItem.id
         );
         if (!found) {
-          // a lineItem for this product for this user does NOT exist
-          // create a new lineItem
           setLineItems([...lineItems, lineItem]);
         } else {
           // a lineItem already exists for this product and user
@@ -155,7 +139,7 @@ const App = () => {
         );
       });
   }; //end removeFromCart
-
+  console.log(products);
   return (
     <div>
       <NavBar
@@ -166,9 +150,14 @@ const App = () => {
       />
       <Switch>
         <Route
+          path="/products:brand"
+          render={(props) => <BrandProducts addToCart={addToCart} {...props} />}
+        />
+        <Route
           path="/products"
           render={() => <Products addToCart={addToCart} products={products} />}
         />
+
         <Route
           path="/product:id"
           render={(props) => <ProductDetails {...props} />}
