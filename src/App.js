@@ -139,6 +139,7 @@ const App = () => {
         );
       });
   }; //end removeFromCart
+
   console.log(products);
   return (
     <div>
@@ -157,7 +158,6 @@ const App = () => {
           path="/products"
           render={() => <Products addToCart={addToCart} products={products} />}
         />
-
         <Route
           path="/product:id"
           render={(props) => <ProductDetails {...props} />}

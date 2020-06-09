@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Product from "./Product.js";
 
@@ -26,20 +27,24 @@ const BrandProducts = (props) => {
   console.log(products);
 
   return (
-    <div>
-      <h2>Products</h2>
-      <ul>
-        {products.map((_product) => {
+    <Container className="mt-5">
+      <Row>
+        <h2>All Products</h2>
+      </Row>
+      <Row>
+        {products.map((product) => {
           return (
-            <Product
-              key={_product.id}
-              product={_product}
-              addToCart={addToCart}
-            />
+            <Col md={4} className="list-unstyled" key={product.id}>
+              <Product
+                key={product.id}
+                product={product}
+                addToCart={addToCart}
+              />
+            </Col>
           );
         })}
-      </ul>
-    </div>
+      </Row>
+    </Container>
   );
 };
 
