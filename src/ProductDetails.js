@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Container, Row, Form } from "react-bootstrap";
 import axios from "axios";
 
 const ProductDetails = (props) => {
@@ -43,48 +43,36 @@ const ProductDetails = (props) => {
   }, []);
 
   return (
-    <>
-      <div id="">
-        <ul className="">
-          <li className="">Name: {product.name}</li>
-          <li className="">
-            <img className="" src={product.image} />
+    <Container>
+      <Row>
+        <Form onSubmit={onSubmit}>
+          <li key={product.id}>
+            <span>
+              <Link to={`/product:${product.id}`}>{product.name} </Link>
+            </span>
+            <span>${Number(product.price).toFixed(2)}</span>
+            <div>
+              <Form.Label>Choose quantity:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Quantity"
+                key={product.id}
+                value={quantity}
+                onChange={(ev) => setQuantity(ev.target.value * 1)}
+                id={product.id}
+                type="number"
+                name="quantity"
+                min="0"
+                max={product.avail}
+              />
+              <button type="button" disabled={!quantity} onClick={_addToCart}>
+                Add to Cart
+              </button>
+            </div>
           </li>
-          <li className="">Price: ${Number(product.price).toFixed(2)}</li>
-          <li className="">Description: {product.description}</li>
-          <li className="">Stock: {product.avail}</li>
-        </ul>
-        <h3>
-          <Link to="/products">Back to Store</Link>
-        </h3>
-      </div>
-      <Form onSubmit={onSubmit}>
-        <li key={product.id}>
-          <span>
-            <Link to={`/product:${product.id}`}>{product.name} </Link>
-          </span>
-          <span>${Number(product.price).toFixed(2)}</span>
-          <div>
-            <Form.Label>Choose quantity:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Quantity"
-              key={product.id}
-              value={quantity}
-              onChange={(ev) => setQuantity(ev.target.value * 1)}
-              id={product.id}
-              type="number"
-              name="quantity"
-              min="0"
-              max={product.avail}
-            />
-            <button type="button" disabled={!quantity} onClick={_addToCart}>
-              Add to Cart
-            </button>
-          </div>
-        </li>
-      </Form>
-    </>
+        </Form>
+      </Row>
+    </Container>
   );
 };
 

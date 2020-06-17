@@ -62,7 +62,7 @@ const Home = () => {
       </Container>
       <Row className="mb-5">
         <Col md={12}>
-          <Image className="mw-100" src="../assets/img/Banner2-01.png" />
+          <Image className="mw-100" src="../assets/img/banner2sized.png" />
         </Col>
       </Row>
       <Container className="mb-5">
@@ -77,7 +77,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-05.png"
                 href="#"
               />
             </Card>
@@ -87,7 +87,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-01.png"
                 href="#"
               />
             </Card>
@@ -97,7 +97,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-06.png"
                 href="#"
               />
             </Card>
@@ -107,7 +107,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-04.png"
                 href="#"
               />
             </Card>
@@ -117,7 +117,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-02.png"
                 href="#"
               />
             </Card>
@@ -127,7 +127,7 @@ const Home = () => {
               <Card.Img
                 id="brand-card"
                 variant="top"
-                src="../assets/img/icon_pencil.png"
+                src="../assets/img/edited-03.png"
                 href="#"
               />
             </Card>

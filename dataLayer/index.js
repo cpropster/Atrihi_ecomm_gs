@@ -4,7 +4,7 @@ const faker = require("faker");
 const { authenticate, compare, findUserFromToken, hash } = require("./auth");
 
 const models = require("./modelsIndex");
-const { products, users, orders, lineItems } = models;
+const { products, productVariants, users, orders, lineItems } = models;
 
 const {
   getCart,
@@ -24,9 +24,9 @@ const sync = async () => {
   DROP TABLE IF EXISTS addresses;
   DROP TABLE IF EXISTS "lineItems";
   DROP TABLE IF EXISTS orders;
-  DROP TABLE IF EXISTS users;
+  DROP TABLE IF EXISTS "productVariants";
   DROP TABLE IF EXISTS products;
-  DROP TABLE IF EXISTS brands;
+  DROP TABLE IF EXISTS users;
 
   CREATE TABLE users(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -36,21 +36,20 @@ const sync = async () => {
     password VARCHAR(100) NOT NULL,
     role VARCHAR(20) DEFAULT 'USER'
   );
-  CREATE TABLE brands(
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(100) NOT NULL UNIQUE
-  );
   CREATE TABLE products(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL UNIQUE,
     brand VARCHAR(100) NOT NULL,
-    size VARCHAR(100),
-    color VARCHAR(100),
-    description VARCHAR(999),
+    description VARCHAR(999) NOT NULL
+  );
+  CREATE TABLE "productVariants"(
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    color VARCHAR(999) NOT NULL,
+    size VARCHAR(100) NOT NULL,
+    image VARCHAR(999) NOT NULL,
     price DECIMAL NOT NULL,
     avail INTEGER,
-    image VARCHAR(999),
-    CHECK (char_length(name) > 0)
+    "productId" UUID REFERENCES products(id) ON DELETE CASCADE NOT NULL
   );
   CREATE TABLE orders(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -77,69 +76,20 @@ const sync = async () => {
       username: "lucy",
       firstName: "Lucille",
       lastName: "Pincher",
-      password: "LUCY",
+      password: "@Surfing123",
       role: "ADMIN",
-    },
-    moe: {
-      username: "moe",
-      firstName: "Moe",
-      lastName: "Durvish",
-      password: "MOE",
-      role: "USER",
-    },
-    curly: {
-      username: "larry",
-      firstName: "Larrold",
-      lastName: "Bohannaghan",
-      password: "LARRY",
-      role: "USER",
     },
   };
 
   const _products = {
     foo: {
       name: "Polo",
-      brand: "PoloRalphLauren",
-      size: ["XS", "S", "M", "L", "XL"],
-      color: ["red", "blue", "green"],
+      brand: "Polo Ralph Lauren",
       description: "Standard Ralph Lauren Polo",
-      price: 35.99,
-      avail: 100,
-    },
-    bar: {
-      name: "bar",
-      brand: "doo",
-      price: 2,
-      avail: 10,
-    },
-    bazz: {
-      name: "bazz",
-      brand: "doo",
-      price: 2.5,
-      avail: 10,
-    },
-    quq: {
-      name: "quq",
-      brand: "doo",
-      price: 11.99,
-      avail: 10,
     },
   };
 
   // Get data from faker
-  for (i = 0; i < 5; i++) {
-    let tempName = faker.commerce.productName();
-    let tempURL = faker.image.image();
-
-    _products[tempName] = {
-      name: tempName,
-      brand: faker.company.companyName(),
-      price: faker.commerce.price(),
-      avail: Math.ceil(Math.random() * 10),
-      description: faker.lorem.sentences(),
-      image: tempURL,
-    };
-  }
 
   const [foo] = await Promise.all(
     Object.values(_products).map((product) => products.create(product))

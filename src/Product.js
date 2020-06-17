@@ -14,7 +14,6 @@ const Product = ({ product, addToCart }) => {
             fluid
           />
           <span>{product.name}</span>
-          <br />
           <span>${Number(product.price).toFixed(2)}</span>
         </Card>
       </a>

@@ -65,6 +65,7 @@ app.post("/api/auth", (req, res, next) => {
 });
 
 app.get("/api/auth", isLoggedIn, (req, res, next) => {
+  console.log("inside of the auth post ", req.user);
   res.send(req.user);
 });
 

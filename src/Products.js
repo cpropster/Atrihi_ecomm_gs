@@ -15,7 +15,7 @@ const Products = ({ products, addToCart }) => {
       <Row>
         {products.map((product) => {
           return (
-            <Col md={4} className="list-unstyled" key={product.id}>
+            <Col md={3} className="list-unstyled" key={product.id}>
               <Product
                 key={product.id}
                 product={product}

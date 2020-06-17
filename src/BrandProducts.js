@@ -6,7 +6,6 @@ import Product from "./Product.js";
 const BrandProducts = (props) => {
   console.log(props);
   const brand = props.match.params.brand;
-  const { addToCart } = props;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
