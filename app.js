@@ -54,7 +54,6 @@ app.get("/", (req, res, next) => {
 });
 
 app.post("/api/auth", (req, res, next) => {
-  console.log("inside of the auth post ", req.body);
   db.authenticate(req.body)
     .then((token) => res.send({ token }))
     .catch(() => {
@@ -65,7 +64,6 @@ app.post("/api/auth", (req, res, next) => {
 });
 
 app.get("/api/auth", isLoggedIn, (req, res, next) => {
-  console.log("inside of the auth post ", req.user);
   res.send(req.user);
 });
 
@@ -89,6 +87,49 @@ app.put("/api/users/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+app.get("/api/getCart", (req, res, next) => {
+  db.getCart(req.user.id)
+    .then((cart) => res.send(cart))
+    .catch(next);
+});
+
+app.get("/api/getOrders", (req, res, next) => {
+  db.getOrders(req.user.id)
+    .then((orders) => res.send(orders))
+    .catch(next);
+});
+
+app.post("/api/createOrder", (req, res, next) => {
+  db.createOrder(req.user.id)
+    .then((order) => res.send(order))
+    .catch(next);
+});
+
+app.get("/api/getLineItems", (req, res, next) => {
+  db.getLineItems(req.user.id)
+    .then((lineItems) => res.send(lineItems))
+    .catch(next);
+});
+
+app.post("/api/addToCart", (req, res, next) => {
+  // see db/userMethods.js
+  db.addToCart({
+    userId: req.user.id,
+    productId: req.body.productId,
+    quantity: req.body.quantity,
+  })
+    .then((lineItem) => {
+      res.send(lineItem);
+    })
+    .catch(next);
+});
+
+app.delete("/api/removeFromCart/:id", (req, res, next) => {
+  db.removeFromCart({ userId: req.user.id, lineItemId: req.params.id })
+    .then(() => res.sendStatus(204))
+    .catch(next);
 });
 
 Object.keys(models).forEach((key) => {

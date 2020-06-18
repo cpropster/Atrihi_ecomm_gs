@@ -8,6 +8,7 @@ import AboutUs from "./AboutUs";
 import Products from "./Products";
 import ProductDetails from "./ProductDetails";
 import BrandProducts from "./BrandProducts";
+import ProductCreate from "./ProductCreate";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -26,6 +27,7 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
   const [lineItems, setLineItems] = useState([]);
+  const [productVariants, setProductVariants] = useState([]);
 
   const history = useHistory();
 
@@ -123,6 +125,28 @@ const App = () => {
       });
   };
 
+  const createProduct = (color, size, image, price, avail, productId) => {
+    axios
+      .post("/api/productVariants", {
+        color,
+        size,
+        image,
+        price,
+        avail,
+        productId,
+      })
+      .then((response) => {
+        const variant = response.data;
+        const found = productVariants.find(
+          (_productVariant) => _productVariant.id === variant.id
+        );
+        if (!found) {
+          setProductVariants([...productVariants, variant]);
+        }
+      })
+      .catch((ex) => setError(ex.response.data.message));
+  };
+
   const removeFromCart = (lineItemId, product) => {
     axios
       .delete(`/api/removeFromCart/${lineItemId}`, headers())
@@ -138,9 +162,8 @@ const App = () => {
           headers()
         );
       });
-  }; //end removeFromCart
+  };
 
-  console.log(products);
   return (
     <div>
       <NavBar
@@ -150,6 +173,12 @@ const App = () => {
         createAccount={createAccount}
       />
       <Switch>
+        <Route
+          path="/productAdd"
+          render={() => (
+            <ProductCreate products={products} createProduct={createProduct} />
+          )}
+        />
         <Route
           path="/products:brand"
           render={(props) => <BrandProducts addToCart={addToCart} {...props} />}

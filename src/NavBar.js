@@ -63,7 +63,7 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="#">Contact Us</Nav.Link>
-              <Nav.Link href="#">Add Product</Nav.Link>
+              <Nav.Link href="/#/productAdd">Add Product</Nav.Link>
             </Nav>
             {!auth.id ? (
               <>

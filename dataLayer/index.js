@@ -73,10 +73,10 @@ const sync = async () => {
 
   const _users = {
     lucy: {
-      username: "lucy",
-      firstName: "Lucille",
-      lastName: "Pincher",
-      password: "@Surfing123",
+      username: "aiko",
+      firstName: "Aiko",
+      lastName: "Wong",
+      password: "@SurfTurf890",
       role: "ADMIN",
     },
   };
