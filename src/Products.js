@@ -3,10 +3,9 @@ import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import Product from "./Product.js";
 
-const Products = ({ products, addToCart }) => {
-  // TODO: Disable the addToCart button when available inventory reaches zero.
-  // TODO: Update product.avail after Create Order event
-  // Pass the quantity as a parameter to addToCart
+const Products = ({ products, productVariants, addToCart }) => {
+  console.log("product variants in products ", productVariants);
+
   return (
     <Container className="mt-5">
       <Row>
@@ -19,6 +18,9 @@ const Products = ({ products, addToCart }) => {
               <Product
                 key={product.id}
                 product={product}
+                productVariant={productVariants.find((productV) => {
+                  return productV.productId === product.id;
+                })}
                 addToCart={addToCart}
               />
             </Col>

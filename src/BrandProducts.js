@@ -4,9 +4,10 @@ import axios from "axios";
 import Product from "./Product.js";
 
 const BrandProducts = (props) => {
-  console.log(props);
+  const addToCart = props.addToCart;
   const brand = props.match.params.brand;
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState([]);
 
   useEffect(() => {
     axios
@@ -14,21 +15,26 @@ const BrandProducts = (props) => {
       .then((_products) =>
         setProducts(
           _products.data.reduce((acc, product) => {
-            if (`:${product.brand}` === brand) {
+            if (`:${product.brand.split(" ").join("")}` === brand) {
               acc.push(product);
             }
             return acc;
           }, [])
         )
       )
-      .catch();
+      .catch((ex) => setError(ex.response.data.message));
   }, []);
   console.log(products);
 
   return (
     <Container className="mt-5">
       <Row>
-        <h2>All Products</h2>
+        <h2>
+          All{" "}
+          {products.map((product) => {
+            return product.brand;
+          })}
+        </h2>
       </Row>
       <Row>
         {products.map((product) => {

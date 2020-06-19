@@ -35,13 +35,18 @@ const App = () => {
     const response = await axios.get("/api/auth", headers());
     setAuth(response.data);
   };
-
   useEffect(() => {
-    exchangeTokenForAuth();
+    axios.get("/api/products").then((response) => setProducts(response.data));
   }, []);
 
   useEffect(() => {
-    axios.get("/api/products").then((response) => setProducts(response.data));
+    axios
+      .get("/api/productVariants")
+      .then((response) => setProductVariants(response.data));
+  }, []);
+
+  useEffect(() => {
+    exchangeTokenForAuth();
   }, []);
 
   useEffect(() => {
@@ -163,6 +168,7 @@ const App = () => {
         );
       });
   };
+  console.log("product v in app ", productVariants);
 
   return (
     <div>
@@ -185,7 +191,13 @@ const App = () => {
         />
         <Route
           path="/products"
-          render={() => <Products addToCart={addToCart} products={products} />}
+          render={() => (
+            <Products
+              addToCart={addToCart}
+              products={products}
+              productVariants={productVariants}
+            />
+          )}
         />
         <Route
           path="/product:id"
