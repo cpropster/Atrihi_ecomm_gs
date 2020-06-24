@@ -3,47 +3,29 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Product from "./Product.js";
 
-const BrandProducts = (props) => {
-  const addToCart = props.addToCart;
-  const brand = props.match.params.brand;
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((_products) =>
-        setProducts(
-          _products.data.reduce((acc, product) => {
-            if (`:${product.brand.split(" ").join("")}` === brand) {
-              acc.push(product);
-            }
-            return acc;
-          }, [])
-        )
-      )
-      .catch((ex) => setError(ex.response.data.message));
-  }, []);
-  console.log(products);
+const BrandProducts = ({ products, productVariants, addToCart, brand }) => {
+  const brandProds = products.filter((product) => {
+    return product.brand === brand;
+  });
+  console.log("products in brand products ", products);
+  console.log("product vs in brand products ", productVariants);
+  console.log("one comparison ", products[0]);
+  console.log("brand in bp ", brand);
 
   return (
     <Container className="mt-5">
       <Row>
-        <h2>
-          All{" "}
-          {products.map((product) => {
-            return product.brand;
-          })}
-        </h2>
+        <h2>All {brand}</h2>
       </Row>
       <Row>
-        {products.map((product) => {
+        {brandProds.map((product) => {
           return (
-            <Col md={4} className="list-unstyled" key={product.id}>
+            <Col md={3} className="list-unstyled" key={product.id}>
               <Product
                 key={product.id}
                 product={product}
                 addToCart={addToCart}
+                productVariants={productVariants}
               />
             </Col>
           );

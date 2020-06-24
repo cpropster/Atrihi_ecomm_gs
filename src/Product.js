@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Image, Card } from "react-bootstrap";
 
-const Product = ({ product, productVariant, addToCart }) => {
+const Product = ({ product, productVariants, addToCart }) => {
+  const productVariant = productVariants.find((pv) => {
+    return pv.productId === product.id;
+  });
   console.log("product v in product ", productVariant);
   return (
     <li key={product.id}>

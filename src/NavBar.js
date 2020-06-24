@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Nav,
@@ -10,7 +10,7 @@ import {
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 
-const NavBar = ({ logout, login, auth, createAccount }) => {
+const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
   return (
     <div>
       {auth.id ? (
@@ -31,10 +31,16 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
                 <NavDropdown.Item href="/#/products">
                   All Products
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:PoloRalphLauren">
+                <NavDropdown.Item
+                  href="/#/products:PoloRalphLauren"
+                  onClick={() => brandSet("Polo Ralph Lauren")}
+                >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:TommyHilfiger">
+                <NavDropdown.Item
+                  href="/#/products:TommyHilfiger"
+                  onClick={() => brandSet("Tommy Hilfiger")}
+                >
                   Tommy Hilfiger
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/#/products:Calvin Klein">
@@ -119,10 +125,16 @@ const NavBar = ({ logout, login, auth, createAccount }) => {
                 <NavDropdown.Item href="/#/products">
                   All Products
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:PoloRalphLauren">
+                <NavDropdown.Item
+                  href="/#/products:PoloRalphLauren"
+                  onClick={() => brandSet("Polo Ralph Lauren")}
+                >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:TommyHilfiger">
+                <NavDropdown.Item
+                  href="/#/products:TommyHilfiger"
+                  onClick={() => brandSet("Tommy Hilfiger")}
+                >
                   Tommy Hilfiger
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/#/products:Calvin Klein">

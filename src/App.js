@@ -28,6 +28,8 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [productVariants, setProductVariants] = useState([]);
+  const [brand, setBrand] = useState("");
+  const [brandName, setBrandName] = useState("");
 
   const history = useHistory();
 
@@ -35,14 +37,21 @@ const App = () => {
     const response = await axios.get("/api/auth", headers());
     setAuth(response.data);
   };
+
   useEffect(() => {
-    axios.get("/api/products").then((response) => setProducts(response.data));
-  }, []);
+    if (brand) {
+      setBrandName(brand);
+    }
+  }, [brand]);
 
   useEffect(() => {
     axios
       .get("/api/productVariants")
       .then((response) => setProductVariants(response.data));
+  }, []);
+
+  useEffect(() => {
+    axios.get("/api/products").then((response) => setProducts(response.data));
   }, []);
 
   useEffect(() => {
@@ -168,7 +177,11 @@ const App = () => {
         );
       });
   };
-  console.log("product v in app ", productVariants);
+
+  const brandSet = (value) => {
+    setBrand(value);
+    console.log("brand in app", brand);
+  };
 
   return (
     <div>
@@ -177,6 +190,7 @@ const App = () => {
         logout={logout}
         auth={auth}
         createAccount={createAccount}
+        brandSet={brandSet}
       />
       <Switch>
         <Route
@@ -187,7 +201,15 @@ const App = () => {
         />
         <Route
           path="/products:brand"
-          render={(props) => <BrandProducts addToCart={addToCart} {...props} />}
+          render={() => (
+            <BrandProducts
+              products={products}
+              productVariants={productVariants}
+              brand={brandName}
+              addToCart={addToCart}
+              brandSet={brandSet}
+            />
+          )}
         />
         <Route
           path="/products"

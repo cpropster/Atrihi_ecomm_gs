@@ -4,8 +4,6 @@ import { Row, Container, Col } from "react-bootstrap";
 import Product from "./Product.js";
 
 const Products = ({ products, productVariants, addToCart }) => {
-  console.log("product variants in products ", productVariants);
-
   return (
     <Container className="mt-5">
       <Row>
@@ -18,9 +16,7 @@ const Products = ({ products, productVariants, addToCart }) => {
               <Product
                 key={product.id}
                 product={product}
-                productVariant={productVariants.find((productV) => {
-                  return productV.productId === product.id;
-                })}
+                productVariants={productVariants}
                 addToCart={addToCart}
               />
             </Col>
