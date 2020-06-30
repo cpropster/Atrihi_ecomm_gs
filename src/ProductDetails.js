@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Form,
+  ToggleButtonGroup,
+  ToggleButton,
+} from "react-bootstrap";
 import axios from "axios";
 
 const ProductDetails = (props) => {
   const id = props.match.params.id;
   const { addToCart } = props;
-  //   const { toggleSearch } = props;
+  // const { toggleSearch } = props;
   const [product, setProduct] = useState({});
+  const [productVs, setProductVs] = useState([]);
+  const [colors, setColors] = useState([]);
   const [quantity, setQuantity] = useState(0);
-  // Added a quantity selector
-  // Pass the quantity as a parameter to addToCart
 
-  const _addToCart = async () => {
+  const _addToCart = async (ev) => {
+    ev.preventDefault();
     product.avail = product.avail - quantity;
     await addToCart(product, quantity);
     setQuantity(0);
   };
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-  };
+
+  console.log("product variants in product details ", productVs);
+  console.log("product in pd ", product);
 
   useEffect(() => {
     // if (
@@ -31,21 +38,33 @@ const ProductDetails = (props) => {
       .get("/api/products")
       .then((products) =>
         setProduct(
-          products.data.reduce((acc, _product) => {
-            if (`:${_product.id}` === id) {
-              acc = _product;
-            }
-            return acc;
-          }, {})
+          products.data.find((_product) => {
+            return `:${_product.id}` === id;
+          }) || {}
         )
       )
       .catch();
   }, []);
 
+  useEffect(() => {
+    if (product && product.id) {
+      axios
+        .get("/api/productVariants")
+        .then((response) =>
+          setProductVs(
+            response.data.filter((productV) => {
+              return productV.productId === product.id;
+            })
+          )
+        )
+        .catch();
+    }
+  }, [product]);
+
   return (
     <Container>
       <Row>
-        <Form onSubmit={onSubmit}>
+        <Form>
           <li key={product.id}>
             <span>
               <Link to={`/product:${product.id}`}>{product.name} </Link>
@@ -54,7 +73,6 @@ const ProductDetails = (props) => {
             <div>
               <Form.Label>Choose quantity:</Form.Label>
               <Form.Control
-                type="text"
                 placeholder="Quantity"
                 key={product.id}
                 value={quantity}
@@ -65,6 +83,22 @@ const ProductDetails = (props) => {
                 min="0"
                 max={product.avail}
               />
+              {/* look below note in slack short circuit so dont render until there is somethiung in the array */}
+              {productVs.length && (
+                <ToggleButtonGroup
+                  type="radio"
+                  name="sizes"
+                  defaultValue={productVs[0].size}
+                >
+                  {productVs.map((pv) => {
+                    return (
+                      <ToggleButton key={pv.size} value={pv.size}>
+                        {pv.size}
+                      </ToggleButton>
+                    );
+                  })}
+                </ToggleButtonGroup>
+              )}
               <button type="button" disabled={!quantity} onClick={_addToCart}>
                 Add to Cart
               </button>

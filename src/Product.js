@@ -5,7 +5,7 @@ const Product = ({ product, productVariants, addToCart }) => {
   const productVariant = productVariants.find((pv) => {
     return pv.productId === product.id;
   });
-  console.log("product v in product ", productVariant);
+
   return (
     <li key={product.id}>
       <a href={`/#/product:${product.id}`}>

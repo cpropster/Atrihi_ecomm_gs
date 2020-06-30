@@ -127,13 +127,13 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:PoloRalphLauren"
-                  onClick={() => brandSet("Polo Ralph Lauren")}
+                  onClick={() => brandSet("brand", "Polo Ralph Lauren")}
                 >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:TommyHilfiger"
-                  onClick={() => brandSet("Tommy Hilfiger")}
+                  onClick={() => brandSet("brand", "Tommy Hilfiger")}
                 >
                   Tommy Hilfiger
                 </NavDropdown.Item>
