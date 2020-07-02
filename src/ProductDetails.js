@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
+  Col,
   Row,
+  Image,
   Form,
   ToggleButtonGroup,
   ToggleButton,
@@ -15,7 +17,11 @@ const ProductDetails = (props) => {
   // const { toggleSearch } = props;
   const [product, setProduct] = useState({});
   const [productVs, setProductVs] = useState([]);
-  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [colorVs, setColorVs] = useState([]);
+  const [activePV, setActivePV] = useState({});
+  const [activeColor, setActiveColor] = useState("");
+  const [activeSize, setActiveSize] = useState("");
   const [quantity, setQuantity] = useState(0);
 
   const _addToCart = async (ev) => {
@@ -25,8 +31,11 @@ const ProductDetails = (props) => {
     setQuantity(0);
   };
 
-  console.log("product variants in product details ", productVs);
-  console.log("product in pd ", product);
+  const acSet = (ev) => {
+    setActiveColor(ev.target.value);
+  };
+
+  console.log(colorVs);
 
   useEffect(() => {
     // if (
@@ -61,30 +70,41 @@ const ProductDetails = (props) => {
     }
   }, [product]);
 
+  useEffect(() => {
+    if (productVs.length && product.id) {
+      axios
+        .get("/api/productVariants")
+        .then((response) =>
+          setColorVs(
+            response.data.reduce((acc, productV) => {
+              if (
+                !acc.find((colorV) => {
+                  return productV.color === colorV.color;
+                })
+              ) {
+                acc.push(productV);
+                setActiveColor(acc[0].color);
+              }
+              return acc;
+            }, [])
+          )
+        )
+        .catch();
+    }
+  }, [productVs]);
+
   return (
-    <Container>
-      <Row>
-        <Form>
-          <li key={product.id}>
-            <span>
-              <Link to={`/product:${product.id}`}>{product.name} </Link>
-            </span>
-            <span>${Number(product.price).toFixed(2)}</span>
-            <div>
-              <Form.Label>Choose quantity:</Form.Label>
-              <Form.Control
-                placeholder="Quantity"
-                key={product.id}
-                value={quantity}
-                onChange={(ev) => setQuantity(ev.target.value * 1)}
-                id={product.id}
-                type="number"
-                name="quantity"
-                min="0"
-                max={product.avail}
-              />
-              {/* look below note in slack short circuit so dont render until there is somethiung in the array */}
-              {productVs.length && (
+    <Container fluid>
+      <Row className="mt-4">
+        <Col md={6}>
+          <Image src="https://via.placeholder.com/450" fluid />
+        </Col>
+        <Col md={6}>
+          <Form>
+            <h1>{product.name}</h1>
+            {productVs.length && (
+              <>
+                <h5>Size</h5>
                 <ToggleButtonGroup
                   type="radio"
                   name="sizes"
@@ -92,19 +112,59 @@ const ProductDetails = (props) => {
                 >
                   {productVs.map((pv) => {
                     return (
-                      <ToggleButton key={pv.size} value={pv.size}>
+                      <ToggleButton key={pv.id} value={pv.size}>
                         {pv.size}
                       </ToggleButton>
                     );
                   })}
                 </ToggleButtonGroup>
-              )}
-              <button type="button" disabled={!quantity} onClick={_addToCart}>
-                Add to Cart
-              </button>
-            </div>
-          </li>
-        </Form>
+              </>
+            )}
+            <br />
+            <br />
+            {colorVs.length && (
+              <>
+                <h5>Color {activeColor} </h5>
+                <ToggleButtonGroup
+                  type="radio"
+                  name="sizes"
+                  defaultValue={colorVs[0].color}
+                >
+                  {colorVs.map((colorV) => {
+                    return (
+                      <ToggleButton
+                        className="pdColorButton"
+                        key={colorV.id}
+                        value={colorV.color}
+                        onClick={acSet}
+                      >
+                        <Image src={colorV.image} thumbnail />
+                      </ToggleButton>
+                    );
+                  })}
+                </ToggleButtonGroup>
+              </>
+            )}
+            <br />
+            <br />
+            <Form.Label>Choose Quantity</Form.Label>
+            <Form.Control
+              placeholder="Quantity"
+              key={product.id}
+              value={quantity}
+              onChange={(ev) => setQuantity(ev.target.value * 1)}
+              id={product.id}
+              type="number"
+              name="quantity"
+              min="0"
+              max={product.avail}
+            />
+
+            <button type="button" disabled={!quantity} onClick={_addToCart}>
+              Add to Cart
+            </button>
+          </Form>
+        </Col>
       </Row>
     </Container>
   );

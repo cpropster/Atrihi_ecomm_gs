@@ -132,7 +132,14 @@ const App = () => {
       });
   };
 
-  const createProduct = (color, size, image, price, avail, productId) => {
+  const createProductVariant = (
+    color,
+    size,
+    image,
+    price,
+    avail,
+    productId
+  ) => {
     axios
       .post("/api/productVariants", {
         color,
@@ -189,7 +196,10 @@ const App = () => {
         <Route
           path="/productAdd"
           render={() => (
-            <ProductCreate products={products} createProduct={createProduct} />
+            <ProductCreate
+              products={products}
+              createProductVariant={createProductVariant}
+            />
           )}
         />
         <Route

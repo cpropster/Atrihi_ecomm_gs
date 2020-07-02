@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
-const ProductCreate = ({ createProduct, products }) => {
+const ProductCreate = ({ createProductVariant, products }) => {
   const [color, setColor] = useState("");
   const [sizes, setSizes] = useState("");
   const [image, setImage] = useState("");
@@ -14,7 +14,8 @@ const ProductCreate = ({ createProduct, products }) => {
     const sizeArr = sizes.split(", ");
     sizeArr.forEach((size) => {
       console.log(color, size, image, price, avail, productId);
-      createProduct(color, size, image, price, avail, productId);
+      createProductVariant(color, size, image, price, avail, productId);
+      setProductId("");
     });
   };
 
