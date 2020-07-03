@@ -1,18 +1,22 @@
 import React from "react";
 import { Image, Card } from "react-bootstrap";
 
-const Product = ({ product, productVariants, addToCart }) => {
+const Product = ({ product, productVariants }) => {
   const productVariant = productVariants.find((pv) => {
     return pv.productId === product.id;
   });
+
+  console.log(productVariants);
 
   return (
     <li key={product.id}>
       <a href={`/#/product:${product.id}`}>
         <Card border="light" href={`/product:${product.id}`} className="mb-5">
-          <Image src={productVariant.image} fluid />
+          <Image src={productVariants.length && productVariant.image} fluid />
           <span>{product.name}</span>
-          <span>${Number(productVariant.price).toFixed(2)}</span>
+          <span>
+            ${productVariants.length && Number(productVariant.price).toFixed(2)}
+          </span>
         </Card>
       </a>
     </li>

@@ -17,25 +17,31 @@ const ProductDetails = (props) => {
   // const { toggleSearch } = props;
   const [product, setProduct] = useState({});
   const [productVs, setProductVs] = useState([]);
-  const [sizes, setSizes] = useState([]);
+  const [sizeVs, setSizeVs] = useState([]);
   const [colorVs, setColorVs] = useState([]);
   const [activePV, setActivePV] = useState({});
   const [activeColor, setActiveColor] = useState("");
   const [activeSize, setActiveSize] = useState("");
+  const [activeImage, setActiveImage] = useState("");
   const [quantity, setQuantity] = useState(0);
 
   const _addToCart = async (ev) => {
     ev.preventDefault();
-    product.avail = product.avail - quantity;
-    await addToCart(product, quantity);
+    activePV.avail = activePV.avail - quantity;
+    await addToCart(activePV, quantity);
     setQuantity(0);
   };
 
   const acSet = (ev) => {
     setActiveColor(ev.target.value);
+    setActiveSize(sizeVs[0].size);
   };
 
-  console.log(colorVs);
+  const asSet = (ev) => {
+    setActiveSize(ev.target.value);
+  };
+
+  console.log(activePV);
 
   useEffect(() => {
     // if (
@@ -63,7 +69,7 @@ const ProductDetails = (props) => {
           setProductVs(
             response.data.filter((productV) => {
               return productV.productId === product.id;
-            })
+            }) || []
           )
         )
         .catch();
@@ -86,34 +92,83 @@ const ProductDetails = (props) => {
                 setActiveColor(acc[0].color);
               }
               return acc;
-            }, [])
+            }, []) || []
           )
         )
         .catch();
     }
   }, [productVs]);
 
+  useEffect(() => {
+    if (productVs.length && product.id) {
+      axios
+        .get("/api/productVariants")
+        .then((response) =>
+          setSizeVs(
+            response.data.reduce((acc, productV) => {
+              if (
+                !acc.find((sizeV) => {
+                  return productV.size === sizeV.size;
+                }) &&
+                productV.color === activeColor
+              ) {
+                acc.push(productV);
+                setActiveSize(acc[0].size);
+              }
+              return acc;
+            }, []) || []
+          )
+        )
+        .catch();
+    }
+  }, [activeColor]);
+
+  useEffect(() => {
+    if (activeColor && activeSize) {
+      axios
+        .get("/api/productVariants")
+        .then((response) =>
+          setActivePV(
+            response.data.find((pv) => {
+              return pv.color === activeColor && pv.size === activeSize;
+            }) || {}
+          )
+        )
+        .catch();
+    }
+  }, [activeSize && activeColor]);
+
   return (
     <Container fluid>
       <Row className="mt-4">
         <Col md={6}>
-          <Image src="https://via.placeholder.com/450" fluid />
+          <Image src={activePV && activePV.image} fluid />
         </Col>
         <Col md={6}>
           <Form>
             <h1>{product.name}</h1>
-            {productVs.length && (
+            {product.brand}
+            <br />
+            <hr />
+            {product.description}
+            <br />
+            <br />
+            {sizeVs.length && (
               <>
                 <h5>Size</h5>
                 <ToggleButtonGroup
                   type="radio"
                   name="sizes"
-                  defaultValue={productVs[0].size}
+                  defaultValue={sizeVs[0].size}
                 >
-                  {productVs.map((pv) => {
+                  {sizeVs.map((sizeV) => {
                     return (
-                      <ToggleButton key={pv.id} value={pv.size}>
-                        {pv.size}
+                      <ToggleButton
+                        key={sizeV.id}
+                        value={sizeV.size}
+                        onClick={asSet}
+                      >
+                        {sizeV.size}
                       </ToggleButton>
                     );
                   })}

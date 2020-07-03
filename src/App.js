@@ -40,11 +40,13 @@ const App = () => {
   useEffect(() => {
     axios
       .get("/api/productVariants")
-      .then((response) => setProductVariants(response.data));
-  }, []);
+      .then((response) => setProductVariants(response.data || []));
+  }, [products]);
 
   useEffect(() => {
-    axios.get("/api/products").then((response) => setProducts(response.data));
+    axios
+      .get("/api/products")
+      .then((response) => setProducts(response.data || []));
   }, []);
 
   useEffect(() => {
