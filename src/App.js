@@ -82,7 +82,6 @@ const App = () => {
     const token = (await axios.post("/api/auth", credentials)).data.token;
     window.localStorage.setItem("token", token);
     exchangeTokenForAuth();
-    console.log(token);
   };
 
   const createAccount = async (newUser) => {

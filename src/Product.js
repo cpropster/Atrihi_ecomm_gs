@@ -6,8 +6,6 @@ const Product = ({ product, productVariants }) => {
     return pv.productId === product.id;
   });
 
-  console.log(productVariants);
-
   return (
     <li key={product.id}>
       <a href={`/#/product:${product.id}`}>

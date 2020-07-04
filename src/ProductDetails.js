@@ -10,6 +10,7 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 import axios from "axios";
+import Product from "./Product";
 
 const ProductDetails = (props) => {
   const id = props.match.params.id;
@@ -40,8 +41,6 @@ const ProductDetails = (props) => {
   const asSet = (ev) => {
     setActiveSize(ev.target.value);
   };
-
-  console.log(activePV);
 
   useEffect(() => {
     // if (
@@ -221,6 +220,23 @@ const ProductDetails = (props) => {
           </Form>
         </Col>
       </Row>
+      {/* <Row>
+        <h2>All Products</h2>
+      </Row>
+      <Row>
+        {products.map((product) => {
+          return (
+            <Col md={3} className="list-unstyled" key={product.id}>
+              <Product
+                key={product.id}
+                product={product}
+                productVariants={productVariants}
+                addToCart={addToCart}
+              />
+            </Col>
+          );
+        })}
+      </Row> */}
     </Container>
   );
 };

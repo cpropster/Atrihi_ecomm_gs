@@ -132,6 +132,12 @@ app.delete("/api/removeFromCart/:id", (req, res, next) => {
     .catch(next);
 });
 
+app.put("/api/products", (req, res, next) => {
+  db.updateProductAvail({ id: req.body.id, avail: req.body.avail })
+    .then((products) => res.send(products))
+    .catch(next);
+});
+
 Object.keys(models).forEach((key) => {
   app.get(`/api/${key}`, (req, res, next) => {
     models[key]
