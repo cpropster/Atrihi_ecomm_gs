@@ -17,7 +17,9 @@ const ProductDetails = (props) => {
   const { addToCart } = props;
   // const { toggleSearch } = props;
   const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const [productVs, setProductVs] = useState([]);
+  const [productVariants, setProductVariants] = useState([]);
   const [sizeVs, setSizeVs] = useState([]);
   const [colorVs, setColorVs] = useState([]);
   const [activePV, setActivePV] = useState({});
@@ -137,6 +139,18 @@ const ProductDetails = (props) => {
     }
   }, [activeSize && activeColor]);
 
+  useEffect(() => {
+    axios
+      .get("/api/products")
+      .then((response) => setProducts(response.data || []));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/productVariants")
+      .then((response) => setProductVariants(response.data || []));
+  }, [products]);
+
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -220,23 +234,25 @@ const ProductDetails = (props) => {
           </Form>
         </Col>
       </Row>
-      {/* <Row>
-        <h2>All Products</h2>
+      <Row>
+        <h2>Related Products</h2>
       </Row>
       <Row>
-        {products.map((product) => {
-          return (
-            <Col md={3} className="list-unstyled" key={product.id}>
-              <Product
-                key={product.id}
-                product={product}
-                productVariants={productVariants}
-                addToCart={addToCart}
-              />
-            </Col>
-          );
+        {products.map((prod) => {
+          if (prod.id !== product.id) {
+            return (
+              <Col md={3} className="list-unstyled" key={prod.id}>
+                <Product
+                  key={prod.id}
+                  product={prod}
+                  productVariants={productVariants}
+                  addToCart={addToCart}
+                />
+              </Col>
+            );
+          }
         })}
-      </Row> */}
+      </Row>
     </Container>
   );
 };

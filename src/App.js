@@ -9,6 +9,7 @@ import Products from "./Products";
 import ProductDetails from "./ProductDetails";
 import BrandProducts from "./BrandProducts";
 import ProductCreate from "./ProductCreate";
+import Footer from "./Footer";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -233,6 +234,7 @@ const App = () => {
         <Route path="/about" render={() => <AboutUs />} />
         <Route path="/" render={() => <Home />} />
       </Switch>
+      <Footer />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Navbar,
   Nav,
@@ -12,7 +12,7 @@ import CreateAccount from "./CreateAccount";
 
 const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
   return (
-    <div>
+    <>
       {auth.id ? (
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="/#">
@@ -201,7 +201,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
           </Navbar.Collapse>
         </Navbar>
       )}
-    </div>
+    </>
   );
 };
 
