@@ -1,11 +1,19 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 
-const Footer = ({ logout, login, auth, createAccount, brandSet }) => {
+const Footer = () => {
   return (
     <>
-      <Nav id="footer" bg="light" className="ml-auto">
-        <Nav.Link href="/#/refundPolicy">Refund Policy</Nav.Link>
+      <Nav id="footer" className="justify-content-center">
+        <Nav.Item as="li">
+          <Nav.Link href="/#/refundPolicy">Refund Policy</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/#/privacyNotice">Privacy Notice</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link>&copy; 2020 Atrihi Inc. or its affiliates</Nav.Link>{" "}
+        </Nav.Item>
       </Nav>
     </>
   );

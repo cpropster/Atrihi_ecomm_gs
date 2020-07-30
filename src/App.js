@@ -186,7 +186,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
       <NavBar
         login={login}
         logout={logout}
@@ -235,7 +235,7 @@ const App = () => {
         <Route path="/" render={() => <Home />} />
       </Switch>
       <Footer />
-    </div>
+    </>
   );
 };
 
