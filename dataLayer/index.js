@@ -87,11 +87,16 @@ const sync = async () => {
       brand: "Polo Ralph Lauren",
       description: "Standard Ralph Lauren Polo",
     },
+    bar: {
+      name: "V-Neck",
+      brand: "Tommy Hilfiger",
+      description: "standard v neck",
+    },
   };
 
   // Get data from faker
 
-  const [foo] = await Promise.all(
+  const [foo, bar] = await Promise.all(
     Object.values(_products).map((product) => products.create(product))
   );
 
