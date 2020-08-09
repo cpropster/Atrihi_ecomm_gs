@@ -7,6 +7,7 @@ import {
   Form,
   ToggleButtonGroup,
   ToggleButton,
+  Carousel,
 } from "react-bootstrap";
 import axios from "axios";
 import Product from "./Product";
@@ -26,6 +27,17 @@ const ProductDetails = (props) => {
   const [activeSize, setActiveSize] = useState("");
   const [activeImage, setActiveImage] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [arrCarProds, setArrCarProds] = useState([]);
+  const [arrCar, setArrCar] = useState([]);
+
+  console.log("this is products", products);
+
+  const pushArrCarr = () => {
+    const arrCaro = [];
+    const size = 3;
+    while (arrCarProds.length > 1) arrCaro.push(arrCarProds.splice(0, size));
+    return arrCaro;
+  };
 
   const _addToCart = async (ev) => {
     ev.preventDefault();
@@ -143,6 +155,17 @@ const ProductDetails = (props) => {
       .get("/api/products")
       .then((response) => setProducts(response.data || []));
   }, []);
+  useEffect(() => {
+    axios
+      .get("/api/products")
+      .then((response) => setArrCarProds(response.data || []));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/products")
+      .then((response) => setArrCar(pushArrCarr(response.data)));
+  }, [arrCarProds]);
 
   useEffect(() => {
     axios
@@ -236,22 +259,36 @@ const ProductDetails = (props) => {
       <Row>
         <h2>Related Products</h2>
       </Row>
-      <Row>
-        {products.map((prod) => {
-          if (prod.id !== product.id) {
-            return (
-              <Col md={3} className="list-unstyled" key={prod.id}>
-                <Product
-                  key={prod.id}
-                  product={prod}
-                  productVariants={productVariants}
-                  addToCart={addToCart}
-                />
-              </Col>
-            );
-          }
+      <Carousel className="align-center" touch="true">
+        {arrCar.map((prodArr, i) => {
+          return (
+            <Carousel.Item
+              key={i}
+              className="justify-content-center flex-md-row"
+            >
+              <Row>
+                {prodArr.map((prod) => {
+                  if (`:${prod.id}` !== product.id) {
+                    return (
+                      <Col
+                        md={3}
+                        className="list-unstyled mx-auto"
+                        key={prod.id}
+                      >
+                        <Product
+                          product={prod}
+                          productVariants={productVariants}
+                          addToCart={addToCart}
+                        />
+                      </Col>
+                    );
+                  }
+                })}
+              </Row>
+            </Carousel.Item>
+          );
         })}
-      </Row>
+      </Carousel>
     </Container>
   );
 };

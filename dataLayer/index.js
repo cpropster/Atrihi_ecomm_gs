@@ -76,7 +76,7 @@ const sync = async () => {
       username: "aiko",
       firstName: "Aiko",
       lastName: "Wong",
-      password: "@SurfTurf890",
+      password: "Hello123",
       role: "ADMIN",
     },
   };
@@ -92,11 +92,26 @@ const sync = async () => {
       brand: "Tommy Hilfiger",
       description: "standard v neck",
     },
+    que: {
+      name: "round neck",
+      brand: "Tommy Hilfiger",
+      description: "round neck",
+    },
+    qeu: {
+      name: "sweater",
+      brand: "Tommy Hilfiger",
+      description: "sweater",
+    },
+    get: {
+      name: "hoody",
+      brand: "Polo Ralph Lauren",
+      description: "hoody",
+    },
   };
 
   // Get data from faker
 
-  const [foo, bar] = await Promise.all(
+  const [foo, bar, que, qeu] = await Promise.all(
     Object.values(_products).map((product) => products.create(product))
   );
 
