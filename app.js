@@ -1,9 +1,14 @@
+if (!process.env.IS_PRODUCTION) {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const path = require("path");
 const db = require("./dataLayer");
 const jwt = require("jwt-simple");
+const nodemailer = require("nodemailer");
 const models = db.models;
 
 app.use(cors());
@@ -11,6 +16,51 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/dist", express.static(path.join(__dirname, "dist")));
 app.use("/assets", express.static(path.join(__dirname, "assets")));
+
+const transport = {
+  host: "smtp.gmail.com",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PW,
+  },
+};
+
+const transporter = nodemailer.createTransport(transport);
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take messages");
+  }
+});
+
+app.post("/api/send", (req, res, next) => {
+  console.log(req.body);
+  const name = req.body.name;
+  const email = req.body.email;
+  const message = req.body.message;
+  const content = `name: ${name} \n email: ${email} \n message: ${message} `;
+
+  const mail = {
+    from: name,
+    to: "atrihi.contact@gmail.com",
+    subject: "New Message From Contact Form",
+    text: content,
+  };
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: "fail",
+      });
+    } else {
+      res.json({
+        msg: "success",
+      });
+    }
+  });
+});
 
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
@@ -152,34 +202,5 @@ Object.keys(models).forEach((key) => {
       .catch(next);
   });
 });
-
-// const request = mailjet.post("send", { version: "v3.1" }).request({
-//   Messages: [
-//     {
-//       From: {
-//         Email: "cpropster@gmail.com",
-//         Name: "chrys",
-//       },
-//       To: [
-//         {
-//           Email: "cpropster@gmail.com",
-//           Name: "chrys",
-//         },
-//       ],
-//       Subject: "Greetings from Mailjet.",
-//       TextPart: "My first Mailjet email",
-//       HTMLPart:
-//         "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-//       CustomID: "AppGettingStartedTest",
-//     },
-//   ],
-// });
-// request
-//   .then((result) => {
-//     console.log(result.body);
-//   })
-//   .catch((err) => {
-//     console.log(err.statusCode);
-//   });
 
 module.exports = { app, isLoggedIn, isAdmin };

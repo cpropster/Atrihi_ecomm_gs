@@ -162,7 +162,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                   Chums
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#">Contact Us</Nav.Link>
+              <Nav.Link href="/#/contactUs">Contact Us</Nav.Link>
             </Nav>
             {!auth.id ? (
               <>

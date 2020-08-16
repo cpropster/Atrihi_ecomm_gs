@@ -10,6 +10,7 @@ import ProductDetails from "./ProductDetails";
 import BrandProducts from "./BrandProducts";
 import ProductCreate from "./ProductCreate";
 import Footer from "./Footer";
+import ContactUs from "./ContactUs";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -231,6 +232,7 @@ const App = () => {
           path="/product:id"
           render={(props) => <ProductDetails {...props} />}
         />
+        <Route path="/contactUs" render={() => <ContactUs />} />
         <Route path="/about" render={() => <AboutUs />} />
         <Route path="/" render={() => <Home />} />
       </Switch>
