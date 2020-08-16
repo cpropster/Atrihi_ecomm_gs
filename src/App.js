@@ -11,6 +11,8 @@ import BrandProducts from "./BrandProducts";
 import ProductCreate from "./ProductCreate";
 import Footer from "./Footer";
 import ContactUs from "./ContactUs";
+import RefundPolicy from "./RefundPolicy";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -206,7 +208,7 @@ const App = () => {
           )}
         />
         <Route
-          //change this route
+          //change this route to /products/:brand
           path="/products:brand"
           render={() => (
             <BrandProducts
@@ -233,6 +235,8 @@ const App = () => {
           render={(props) => <ProductDetails {...props} />}
         />
         <Route path="/contactUs" render={() => <ContactUs />} />
+        <Route path="/refundPolicy" render={() => <RefundPolicy />} />
+        <Route path="/privacyPolicy" render={() => <PrivacyPolicy />} />
         <Route path="/about" render={() => <AboutUs />} />
         <Route path="/" render={() => <Home />} />
       </Switch>

@@ -9,10 +9,12 @@ const Footer = () => {
           <Nav.Link href="/#/refundPolicy">Refund Policy</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/#/privacyNotice">Privacy Notice</Nav.Link>
+          <Nav.Link href="/#/privacyPolicy">Privacy Policy</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link>&copy; 2020 Atrihi Inc. or its affiliates</Nav.Link>{" "}
+          <Nav.Link href="/#">
+            &copy; 2020 Atrihi Inc. or its affiliates
+          </Nav.Link>{" "}
         </Nav.Item>
       </Nav>
     </>

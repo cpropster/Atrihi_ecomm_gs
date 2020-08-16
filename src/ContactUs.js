@@ -79,7 +79,11 @@ const ContactUs = () => {
               />
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" onClick={onSubmit}>
+              <Button
+                className="button button-yellow"
+                variant="primary"
+                onClick={onSubmit}
+              >
                 Send Message
               </Button>
             </Modal.Footer>
