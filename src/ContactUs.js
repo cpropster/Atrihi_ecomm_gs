@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, FormControl, Button, Modal } from "react-bootstrap";
+import {
+  Form,
+  FormControl,
+  Button,
+  Modal,
+  Container,
+  Row,
+} from "react-bootstrap";
 import axios from "axios";
 
 const ContactUs = () => {
@@ -39,45 +46,47 @@ const ContactUs = () => {
   };
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Contact Us
-      </Button>
-      <Modal show={modal} onHide={handleClose}>
-        <Form onSubmit={onSubmit}>
-          <Modal.Header closeButton>
-            <Modal.Title>Contact Us Form</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FormControl
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(ev) => setName(ev.target.value)}
-            />
-            <br />
-            <FormControl
-              type="text"
-              placeholder="E-Mail"
-              value={email}
-              onChange={(ev) => setEmail(ev.target.value)}
-            />
-            <br />
-            <FormControl
-              type="text"
-              placeholder="Message"
-              value={message}
-              onChange={(ev) => setMessage(ev.target.value)}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={onSubmit}>
-              Send Message
-            </Button>
-          </Modal.Footer>
-        </Form>
-      </Modal>
-    </>
+    <Container>
+      <Row className="my-5 d-flex justify-content-center">
+        <Button variant="primary" onClick={handleShow}>
+          Contact Us
+        </Button>
+        <Modal show={modal} onHide={handleClose}>
+          <Form onSubmit={onSubmit}>
+            <Modal.Header closeButton>
+              <Modal.Title>Contact Us Form</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <FormControl
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(ev) => setName(ev.target.value)}
+              />
+              <br />
+              <FormControl
+                type="text"
+                placeholder="E-Mail"
+                value={email}
+                onChange={(ev) => setEmail(ev.target.value)}
+              />
+              <br />
+              <FormControl
+                type="text"
+                placeholder="Message"
+                value={message}
+                onChange={(ev) => setMessage(ev.target.value)}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={onSubmit}>
+                Send Message
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+      </Row>
+    </Container>
   );
 };
 
