@@ -9,6 +9,7 @@ const path = require("path");
 const db = require("./dataLayer");
 const jwt = require("jwt-simple");
 const nodemailer = require("nodemailer");
+const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 const models = db.models;
 
 app.use(cors());

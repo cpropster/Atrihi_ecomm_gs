@@ -166,14 +166,14 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
             </Nav>
             {!auth.id ? (
               <>
-                <Form inline>
+                {/* <Form inline>
                   <FormControl
                     type="text"
                     placeholder="Search"
                     className="mr-sm-2"
                   />
                   <Button variant="outline-success">Search</Button>
-                </Form>
+                </Form> */}
                 <Login login={login} />
                 <CreateAccount createAccount={createAccount} />
               </>
@@ -185,17 +185,17 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                     {auth.firstName}
                   </a>
                 </div>
-                <Form inline>
+                {/* <Form inline>
                   <FormControl
                     type="text"
                     placeholder="Search"
                     className="mr-sm-2"
                   />
-                  <Button variant="outline-success">Search</Button>
-                  <Nav.Link variant="primary" onClick={logout}>
-                    Logout
-                  </Nav.Link>
-                </Form>
+                  <Button variant="outline-success">Search</Button> */}
+                <Nav.Link variant="primary" onClick={logout}>
+                  Logout
+                </Nav.Link>
+                {/* </Form> */}
               </>
             )}
           </Navbar.Collapse>

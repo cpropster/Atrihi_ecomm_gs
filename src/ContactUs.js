@@ -6,8 +6,10 @@ import {
   Modal,
   Container,
   Row,
+  Col,
 } from "react-bootstrap";
 import axios from "axios";
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -17,6 +19,11 @@ const ContactUs = () => {
 
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
+
+  const Map = ReactMapboxGl({
+    accessToken:
+      "pk.eyJ1IjoiY3Byb3BzdGVyIiwiYSI6ImNrZHh4ZnEwYzB0ZWIyem53NjkwcHJkOGwifQ.CNQwVH7i-t3VE5Xqofh-lQ",
+  });
 
   const submitMessage = () => {
     axios({
@@ -47,6 +54,25 @@ const ContactUs = () => {
 
   return (
     <Container>
+      <Row>
+        <Map
+          style="mapbox://styles/mapbox/streets-v9"
+          containerStyle={{
+            height: "60vh",
+            width: "100vw",
+          }}
+          center={[-118.45216, 34.02845]}
+        >
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "harbor-15" }}
+          >
+            <Feature coordinates={[-118.45216, 34.02845]} />
+          </Layer>
+        </Map>
+        ;
+      </Row>
       <Row className="my-5 d-flex justify-content-center">
         <Button variant="primary" onClick={handleShow}>
           Contact Us
@@ -80,7 +106,7 @@ const ContactUs = () => {
             </Modal.Body>
             <Modal.Footer>
               <Button
-                className="button button-yellow"
+                className="button button-primary"
                 variant="primary"
                 onClick={onSubmit}
               >
