@@ -71,7 +71,6 @@ const ContactUs = () => {
             <Feature coordinates={[-118.45216, 34.02845]} />
           </Layer>
         </Map>
-        ;
       </Row>
       <Row className="my-5 d-flex justify-content-center">
         <Button variant="primary" onClick={handleShow}>
