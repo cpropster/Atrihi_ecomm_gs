@@ -4,11 +4,19 @@ import { Container, Row, Col, Image, Figure, Card } from "react-bootstrap";
 const Home = () => {
   return (
     <>
-      <Row>
-        <Col md={12}>
-          <Image className="mw-100" src="../assets/img/banner-01.png" />
-        </Col>
-      </Row>
+      <header id="home-banner-container">
+        <Container className="h-100">
+          <Row className="h-100 align-items-center">
+            <Col md={12} className="text-center">
+              <h1 className="font-weight-light text-light">
+                The Best Gifts. The Best Samples. The Best Events.
+                <br />
+                Everytime
+              </h1>
+            </Col>
+          </Row>
+        </Container>
+      </header>
       <Container className="mb-5">
         <Row className="mt-5">
           <Col md={4} className="border-right">

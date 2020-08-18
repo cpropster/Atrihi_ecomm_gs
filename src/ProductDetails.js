@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -30,12 +31,19 @@ const ProductDetails = (props) => {
   const [arrCarProds, setArrCarProds] = useState([]);
   const [arrCar, setArrCar] = useState([]);
 
-  console.log("this is products", products);
+  console.log("this is outside push", arrCar);
 
   const pushArrCarr = () => {
     const arrCaro = [];
     const size = 3;
-    while (arrCarProds.length > 1) arrCaro.push(arrCarProds.splice(0, size));
+    const arrCaroTemp = [];
+    arrCarProds.forEach((prod) => {
+      if (prod.id !== product.id) {
+        arrCaroTemp.push(prod);
+      }
+    });
+    console.log("this is inside push", arrCaroTemp);
+    while (arrCaroTemp.length > 0) arrCaro.push(arrCaroTemp.splice(0, size));
     return arrCaro;
   };
 
@@ -155,16 +163,19 @@ const ProductDetails = (props) => {
       .get("/api/products")
       .then((response) => setProducts(response.data || []));
   }, []);
-  useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((response) => setArrCarProds(response.data || []));
-  }, []);
 
   useEffect(() => {
     axios
       .get("/api/products")
-      .then((response) => setArrCar(pushArrCarr(response.data)));
+      .then((response) => setArrCarProds(response.data || []));
+  }, [activeSize && activeColor]);
+
+  useEffect(() => {
+    if (arrCarProds.length) {
+      axios
+        .get("/api/products")
+        .then((response) => setArrCar(pushArrCarr(response.data || [])));
+    }
   }, [arrCarProds]);
 
   useEffect(() => {
@@ -259,36 +270,38 @@ const ProductDetails = (props) => {
       <Row>
         <h2>Related Products</h2>
       </Row>
-      <Carousel className="align-center" touch="true">
-        {arrCar.map((prodArr, i) => {
-          return (
-            <Carousel.Item
-              key={i}
-              className="justify-content-center flex-md-row"
-            >
-              <Row>
-                {prodArr.map((prod) => {
-                  if (`:${prod.id}` !== product.id) {
-                    return (
-                      <Col
-                        md={3}
-                        className="list-unstyled mx-auto"
-                        key={prod.id}
-                      >
-                        <Product
-                          product={prod}
-                          productVariants={productVariants}
-                          addToCart={addToCart}
-                        />
-                      </Col>
-                    );
-                  }
-                })}
-              </Row>
-            </Carousel.Item>
-          );
-        })}
-      </Carousel>
+      {arrCar.length && (
+        <Carousel className="align-center" touch="true">
+          {arrCar.map((prodArr, i) => {
+            return (
+              <Carousel.Item
+                key={i}
+                className="justify-content-center flex-md-row"
+              >
+                <Row>
+                  {prodArr.map((prod) => {
+                    if (`:${prod.id}` !== product.id) {
+                      return (
+                        <Col
+                          md={3}
+                          className="list-unstyled mx-auto"
+                          key={prod.id}
+                        >
+                          <Product
+                            product={prod}
+                            productVariants={productVariants}
+                            addToCart={addToCart}
+                          />
+                        </Col>
+                      );
+                    }
+                  })}
+                </Row>
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
+      )}
     </Container>
   );
 };
