@@ -73,7 +73,7 @@ const Home = () => {
           <Image className="mw-100" src="../assets/img/banner2sized.png" />
         </Col>
       </Row>
-      <Container className="mb-5">
+      <Container className="bottom-home">
         <Row>
           <Col className="text-center" sm={12}>
             Featured Brands

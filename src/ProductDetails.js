@@ -14,6 +14,7 @@ import axios from "axios";
 import Product from "./Product";
 
 const ProductDetails = (props) => {
+  console.log(props);
   const id = props.match.params.id;
   const { addToCart } = props;
   // const { toggleSearch } = props;
@@ -31,8 +32,6 @@ const ProductDetails = (props) => {
   const [arrCarProds, setArrCarProds] = useState([]);
   const [arrCar, setArrCar] = useState([]);
 
-  console.log("this is outside push", arrCar);
-
   const pushArrCarr = () => {
     const arrCaro = [];
     const size = 3;
@@ -42,16 +41,16 @@ const ProductDetails = (props) => {
         arrCaroTemp.push(prod);
       }
     });
-    console.log("this is inside push", arrCaroTemp);
     while (arrCaroTemp.length > 0) arrCaro.push(arrCaroTemp.splice(0, size));
     return arrCaro;
   };
 
   const _addToCart = async (ev) => {
     ev.preventDefault();
-    activePV.avail = activePV.avail - quantity;
-    await addToCart(activePV, quantity);
-    setQuantity(0);
+    // activePV.avail = activePV.avail - quantity;
+    // await addToCart(activePV, quantity);
+    // setQuantity(0);
+    props.history.push("/contactUs");
   };
 
   const acSet = (ev) => {

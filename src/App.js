@@ -166,6 +166,20 @@ const App = () => {
       .catch((ex) => setError(ex.response.data.message));
   };
 
+  const createProduct = (name, _brand, desc) => {
+    axios
+      .post("/api/products", {
+        name,
+        brand: _brand,
+        description: desc,
+      })
+      .then((response) => {
+        const product = response.data;
+        setProducts([...products, product]);
+      })
+      .catch((ex) => setError(ex.response.data.message));
+  };
+
   const removeFromCart = (lineItemId, product) => {
     axios
       .delete(`/api/removeFromCart/${lineItemId}`, headers())
@@ -196,6 +210,7 @@ const App = () => {
         auth={auth}
         createAccount={createAccount}
         brandSet={brandSet}
+        history={history}
       />
       <Switch>
         <Route
@@ -204,6 +219,8 @@ const App = () => {
             <ProductCreate
               products={products}
               createProductVariant={createProductVariant}
+              createProduct={createProduct}
+              error={error}
             />
           )}
         />

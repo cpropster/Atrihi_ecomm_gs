@@ -7,10 +7,12 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 
-const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
+const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
   return (
     <>
       {auth.id ? (
@@ -68,7 +70,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                   Chums
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#">Contact Us</Nav.Link>
+              <Nav.Link href="#/contactUs">Contact Us</Nav.Link>
               <Nav.Link href="/#/productAdd">Add Product</Nav.Link>
             </Nav>
             {!auth.id ? (
@@ -127,7 +129,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:PoloRalphLauren"
-                  onClick={() => brandSet("brand", "Polo Ralph Lauren")}
+                  onClick={() => brandSet("Polo Ralph Lauren")}
                 >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
@@ -175,7 +177,13 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                   <Button variant="outline-success">Search</Button>
                 </Form> */}
                 <Login login={login} />
-                <CreateAccount createAccount={createAccount} />
+                <CreateAccount
+                  createAccount={createAccount}
+                  history={history}
+                />
+                <Nav.Link href="/#/contactUs">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                </Nav.Link>
               </>
             ) : (
               <>
@@ -192,8 +200,12 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet }) => {
                     className="mr-sm-2"
                   />
                   <Button variant="outline-success">Search</Button> */}
+
                 <Nav.Link variant="primary" onClick={logout}>
                   Logout
+                </Nav.Link>
+                <Nav.Link href="/#/contactUs">
+                  <FontAwesomeIcon icon={faShoppingCart} />
                 </Nav.Link>
                 {/* </Form> */}
               </>

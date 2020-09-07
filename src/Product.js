@@ -5,6 +5,7 @@ const Product = ({ product, productVariants }) => {
   const productVariant = productVariants.find((pv) => {
     return pv.productId === product.id;
   });
+  console.log(productVariant);
   if (product && productVariants) {
     return (
       <li key={product.id}>

@@ -72,7 +72,13 @@ const ContactUs = () => {
           </Layer>
         </Map>
       </Row>
-      <Row className="my-5 d-flex justify-content-center">
+      <Row className="mt-5 d-flex text-center justify-content-cente">
+        <Col md={12}>
+          Thank you for contacting Atrihi! Unfortunately we are only accepting
+          orders from approved events customers at this time.
+        </Col>
+      </Row>
+      <Row className="mt-2 mb-5 d-flex justify-content-center">
         <Button variant="primary" onClick={handleShow}>
           Contact Us
         </Button>
@@ -82,6 +88,9 @@ const ContactUs = () => {
               <Modal.Title>Contact Us Form</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              Contact our customer care team below to set up an account.
+              <br />
+              <br />
               <FormControl
                 type="text"
                 placeholder="Full Name"

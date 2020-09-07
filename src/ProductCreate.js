@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
-const ProductCreate = ({ createProductVariant, products }) => {
+const ProductCreate = ({
+  error,
+  createProduct,
+  createProductVariant,
+  products,
+}) => {
+  const [name, setName] = useState("");
+  const [brand, setBrand] = useState("");
+  const [desc, setDesc] = useState("");
   const [color, setColor] = useState("");
   const [sizes, setSizes] = useState("");
   const [image, setImage] = useState("");
@@ -9,20 +17,47 @@ const ProductCreate = ({ createProductVariant, products }) => {
   const [avail, setAvail] = useState();
   const [productId, setProductId] = useState("");
 
-  const onSubmit = (ev) => {
+  const onSubmitDet = (ev) => {
     ev.preventDefault();
     const sizeArr = sizes.split(", ");
     sizeArr.forEach((size) => {
-      console.log(color, size, image, price, avail, productId);
       createProductVariant(color, size, image, price, avail, productId);
       setProductId("");
     });
   };
 
+  const onSubmitProd = (ev) => {
+    console.log(name, brand, desc);
+    ev.preventDefault();
+    createProduct(name, brand, desc);
+  };
+
   return (
     <Container>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmitProd}>
         <h2>Create Products</h2>
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          placeholder="(One at a time)"
+          onChange={(ev) => setName(ev.target.value)}
+        />
+        <Form.Label>Brand</Form.Label>
+        <Form.Control
+          placeholder="(One at a time)"
+          onChange={(ev) => setBrand(ev.target.value)}
+        />
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          placeholder="(One at a time)"
+          onChange={(ev) => setDesc(ev.target.value)}
+        />
+        <Button variant="primary" type="submit">
+          Create Product
+        </Button>
+      </Form>
+
+      <Form onSubmit={onSubmitDet}>
+        <h2>Create Product Variants</h2>
         <Form.Label>Color</Form.Label>
         <Form.Control
           placeholder="Color (One at a time)"
@@ -66,6 +101,7 @@ const ProductCreate = ({ createProductVariant, products }) => {
           Create Product Variant
         </Button>
       </Form>
+      {error}
     </Container>
   );
 };

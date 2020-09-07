@@ -82,31 +82,31 @@ const sync = async () => {
   };
 
   const _products = {
-    foo: {
-      name: "Polo",
-      brand: "Polo Ralph Lauren",
-      description: "Standard Ralph Lauren Polo",
-    },
-    bar: {
-      name: "V-Neck",
-      brand: "Tommy Hilfiger",
-      description: "standard v neck",
-    },
-    que: {
-      name: "round neck",
-      brand: "Tommy Hilfiger",
-      description: "round neck",
-    },
-    qeu: {
-      name: "sweater",
-      brand: "Tommy Hilfiger",
-      description: "sweater",
-    },
-    get: {
-      name: "hoody",
-      brand: "Polo Ralph Lauren",
-      description: "hoody",
-    },
+    // foo: {
+    //   name: "Polo",
+    //   brand: "Polo Ralph Lauren",
+    //   description: "Standard Ralph Lauren Polo",
+    // },
+    // bar: {
+    //   name: "V-Neck",
+    //   brand: "Tommy Hilfiger",
+    //   description: "standard v neck",
+    // },
+    // que: {
+    //   name: "round neck",
+    //   brand: "Tommy Hilfiger",
+    //   description: "round neck",
+    // },
+    // qeu: {
+    //   name: "sweater",
+    //   brand: "Tommy Hilfiger",
+    //   description: "sweater",
+    // },
+    // get: {
+    //   name: "hoody",
+    //   brand: "Polo Ralph Lauren",
+    //   description: "hoody",
+    // },
   };
 
   // Get data from faker

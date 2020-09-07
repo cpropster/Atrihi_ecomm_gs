@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, FormControl, Nav } from "react-bootstrap";
 
-const CreateAccount = ({ createAccount }) => {
+const CreateAccount = ({ createAccount, history }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -15,13 +15,15 @@ const CreateAccount = ({ createAccount }) => {
   //need to figure out a way to get this to display the check constraint on the front end
   const onSubmit = (ev) => {
     ev.preventDefault();
-    createAccount({ username, firstName, lastName, password })
-      .then(() => {
-        setError("");
-      })
-      .catch((ex) => {
-        setError(ex.response.data.message);
-      });
+    history.push("/contactUs");
+    // createAccount({ username, firstName, lastName, password })
+    //   .then(() => {
+    //     setError("");
+    //   })
+    //   .catch((ex) => {
+    //     setError(ex.response.data.message);
+    //   });
+    handleClose();
   };
   return (
     <>
