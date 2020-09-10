@@ -180,6 +180,19 @@ const App = () => {
       .catch((ex) => setError(ex.response.data.message));
   };
 
+  const deleteProduct = (delProdId) => {
+    axios
+      .delete(`/api/products/${delProdId}`)
+      .then(() => {
+        setProducts(
+          products.filter((product) => {
+            return product.id !== delProdId;
+          })
+        );
+      })
+      .catch((ex) => setError(ex.response.data.message));
+  };
+
   const removeFromCart = (lineItemId, product) => {
     axios
       .delete(`/api/removeFromCart/${lineItemId}`, headers())
@@ -220,6 +233,7 @@ const App = () => {
               products={products}
               createProductVariant={createProductVariant}
               createProduct={createProduct}
+              deleteProduct={deleteProduct}
               error={error}
             />
           )}
@@ -255,7 +269,7 @@ const App = () => {
         <Route path="/refundPolicy" render={() => <RefundPolicy />} />
         <Route path="/privacyPolicy" render={() => <PrivacyPolicy />} />
         <Route path="/about" render={() => <AboutUs />} />
-        <Route path="/" render={() => <Home />} />
+        <Route path="/" render={() => <Home brandSet={brandSet} />} />
       </Switch>
       <Footer />
     </>

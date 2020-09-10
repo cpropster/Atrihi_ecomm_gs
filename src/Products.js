@@ -7,7 +7,7 @@ const Products = ({ products, productVariants, addToCart }) => {
   return (
     <Container className="mt-5">
       <Row>
-        <h2>All Products</h2>
+        <h2 className="mx-5">All Products</h2>
       </Row>
       <Row>
         {products.map((product) => {

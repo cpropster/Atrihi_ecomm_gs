@@ -5,6 +5,7 @@ const ProductCreate = ({
   error,
   createProduct,
   createProductVariant,
+  deleteProduct,
   products,
 }) => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const ProductCreate = ({
   const [color, setColor] = useState("");
   const [sizes, setSizes] = useState("");
   const [image, setImage] = useState("");
+  const [delProdId, setDelProdId] = useState("");
   const [price, setPrice] = useState();
   const [avail, setAvail] = useState();
   const [productId, setProductId] = useState("");
@@ -27,9 +29,13 @@ const ProductCreate = ({
   };
 
   const onSubmitProd = (ev) => {
-    console.log(name, brand, desc);
     ev.preventDefault();
     createProduct(name, brand, desc);
+  };
+
+  const prodDel = (ev) => {
+    ev.preventDefault();
+    deleteProduct(delProdId);
   };
 
   return (
@@ -53,6 +59,27 @@ const ProductCreate = ({
         />
         <Button variant="primary" type="submit">
           Create Product
+        </Button>
+      </Form>
+
+      <Form onSubmit={prodDel}>
+        <h2>Delete Products</h2>
+        <Form.Control
+          as="select"
+          value={delProdId}
+          onChange={(ev) => setDelProdId(ev.target.value)}
+        >
+          <option value="">Choose Product</option>
+          {products.map((product) => {
+            return (
+              <option key={product.id} value={product.id}>
+                {product.name}
+              </option>
+            );
+          })}
+        </Form.Control>
+        <Button variant="primary" type="submit">
+          Delete Product
         </Button>
       </Form>
 

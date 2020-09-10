@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Image, Figure, Card } from "react-bootstrap";
 
-const Home = () => {
+const Home = ({ brandSet }) => {
   return (
     <>
       <header id="home-banner-container">
         <Container className="h-100">
           <Row className="h-100 align-items-center">
             <Col md={12} className="text-center">
-              <h1 className="font-weight-light text-light">
+              <h1 className="font-weight-light home-banner-text">
                 The Best Gifts. The Best Samples. The Best Events.
                 <br />
                 Everytime
@@ -76,69 +76,94 @@ const Home = () => {
       <Container className="bottom-home">
         <Row>
           <Col className="text-center" sm={12}>
-            Featured Brands
+            <h3>Featured Brands</h3>
+            <br />
           </Col>
         </Row>
         <Row>
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-05.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:TommyHilfiger"
+              onClick={() => brandSet("brand", "Tommy Hilfiger")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-05.png"
+                />
+              </Card>
+            </a>
           </Col>{" "}
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-01.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:Champion"
+              onClick={() => brandSet("brand", "Champion")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-01.png"
+                />
+              </Card>
+            </a>
           </Col>{" "}
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-06.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:CalvinKlein"
+              onClick={() => brandSet("brand", "Calvin Klein")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-06.png"
+                />
+              </Card>
+            </a>
           </Col>{" "}
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-04.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:PoloRalphLauren"
+              onClick={() => brandSet("brand", "Polo Ralph Lauren")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-04.png"
+                />
+              </Card>
+            </a>
           </Col>{" "}
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-02.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:Dickies"
+              onClick={() => brandSet("brand", "Dickies")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-02.png"
+                />
+              </Card>
+            </a>
           </Col>
           <Col sm={2} xs={6}>
-            <Card>
-              <Card.Img
-                id="brand-card"
-                variant="top"
-                src="../assets/img/edited-03.png"
-                href="#"
-              />
-            </Card>
+            <a
+              href="/#/products:Pendleton"
+              onClick={() => brandSet("brand", "Pendleton")}
+            >
+              <Card>
+                <Card.Img
+                  id="brand-card"
+                  variant="top"
+                  src="../assets/img/edited-03.png"
+                />
+              </Card>
+            </a>
           </Col>
         </Row>
       </Container>

@@ -27,7 +27,7 @@ const CreateAccount = ({ createAccount, history }) => {
   };
   return (
     <>
-      <Nav.Link onClick={handleShow}>Sign Up</Nav.Link>
+      <Nav.Link href="/#/contactUs">Sign Up</Nav.Link>
       <Modal show={modal} onHide={handleClose}>
         <Form onSubmit={onSubmit}>
           <Modal.Header closeButton>

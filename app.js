@@ -202,6 +202,9 @@ Object.keys(models).forEach((key) => {
       .then((items) => res.send(items))
       .catch(next);
   });
+  app.delete(`/api/${key}/:id`, (req, res, next) => {
+    models[key].delete(req.params).then(res.sendStatus(204)).catch(next);
+  });
 });
 
 module.exports = { app, isLoggedIn, isAdmin };

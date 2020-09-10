@@ -35,38 +35,62 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:PoloRalphLauren"
-                  onClick={() => brandSet("Polo Ralph Lauren")}
+                  onClick={() => brandSet("brand", "Polo Ralph Lauren")}
                 >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:TommyHilfiger"
-                  onClick={() => brandSet("Tommy Hilfiger")}
+                  onClick={() => brandSet("brand", "Tommy Hilfiger")}
                 >
                   Tommy Hilfiger
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Calvin Klein">
+                <NavDropdown.Item
+                  href="/#/products:Calvin Klein"
+                  onClick={() => brandSet("brand", "Calvin Klein")}
+                >
                   Calvin Klein
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:DKNY">
+                <NavDropdown.Item
+                  href="/#/products:DKNY"
+                  onClick={() => brandSet("brand", "DKNY")}
+                >
                   DKNY
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Champion">
+                <NavDropdown.Item
+                  href="/#/products:Champion"
+                  onClick={() => brandSet("brand", "Champion")}
+                >
                   Champion
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Dickies">
+                <NavDropdown.Item
+                  href="/#/products:Dickies"
+                  onClick={() => brandSet("brand", "Dickies")}
+                >
                   Dickies
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Pendleton">
+                <NavDropdown.Item
+                  href="/#/products:Pendleton"
+                  onClick={() => brandSet("brand", "Pendleton")}
+                >
                   Pendleton
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Kavu">
+                <NavDropdown.Item
+                  href="/#/products:Kavu"
+                  onClick={() => brandSet("brand", "Kavu")}
+                >
                   Kavu
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:BarefootDreams">
+                <NavDropdown.Item
+                  href="/#/products:BarefootDreams"
+                  onClick={() => brandSet("brand", "Barefoot Dreams")}
+                >
                   Barefoot Dreams
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Chums">
+                <NavDropdown.Item
+                  href="/#/products:Chums"
+                  onClick={() => brandSet("brand", "Chums")}
+                >
                   Chums
                 </NavDropdown.Item>
               </NavDropdown>
@@ -129,7 +153,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="/#/products:PoloRalphLauren"
-                  onClick={() => brandSet("Polo Ralph Lauren")}
+                  onClick={() => brandSet("brand", "Polo Ralph Lauren")}
                 >
                   Polo Ralph Lauren
                 </NavDropdown.Item>
@@ -139,28 +163,52 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
                 >
                   Tommy Hilfiger
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Calvin Klein">
+                <NavDropdown.Item
+                  href="/#/products:Calvin Klein"
+                  onClick={() => brandSet("brand", "Calvin Klein")}
+                >
                   Calvin Klein
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:DKNY">
+                <NavDropdown.Item
+                  href="/#/products:DKNY"
+                  onClick={() => brandSet("brand", "DKNY")}
+                >
                   DKNY
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Champion">
+                <NavDropdown.Item
+                  href="/#/products:Champion"
+                  onClick={() => brandSet("brand", "Champion")}
+                >
                   Champion
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Dickies">
+                <NavDropdown.Item
+                  href="/#/products:Dickies"
+                  onClick={() => brandSet("brand", "Dickies")}
+                >
                   Dickies
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Pendleton">
+                <NavDropdown.Item
+                  href="/#/products:Pendleton"
+                  onClick={() => brandSet("brand", "Pendleton")}
+                >
                   Pendleton
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Kavu">
+                <NavDropdown.Item
+                  href="/#/products:Kavu"
+                  onClick={() => brandSet("brand", "Kavu")}
+                >
                   Kavu
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:BarefootDreams">
+                <NavDropdown.Item
+                  href="/#/products:BarefootDreams"
+                  onClick={() => brandSet("brand", "Barefoot Dreams")}
+                >
                   Barefoot Dreams
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/#/products:Chums">
+                <NavDropdown.Item
+                  href="/#/products:Chums"
+                  onClick={() => brandSet("brand", "Chums")}
+                >
                   Chums
                 </NavDropdown.Item>
               </NavDropdown>
