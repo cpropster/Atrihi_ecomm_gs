@@ -14,7 +14,6 @@ import axios from "axios";
 import Product from "./Product";
 
 const ProductDetails = (props) => {
-  console.log(props);
   const id = props.match.params.id;
   const { addToCart } = props;
   // const { toggleSearch } = props;
@@ -60,6 +59,10 @@ const ProductDetails = (props) => {
 
   const asSet = (ev) => {
     setActiveSize(ev.target.value);
+  };
+
+  const createMarkup = () => {
+    return { __html: product.description };
   };
 
   useEffect(() => {
@@ -195,8 +198,7 @@ const ProductDetails = (props) => {
             {product.brand}
             <br />
             <hr />
-            {product.description}
-            <br />
+            <div dangerouslySetInnerHTML={createMarkup()} />
             <br />
             {sizeVs.length && (
               <>
@@ -212,6 +214,7 @@ const ProductDetails = (props) => {
                         key={sizeV.id}
                         value={sizeV.size}
                         onClick={asSet}
+                        className="product-toggles"
                       >
                         {sizeV.size}
                       </ToggleButton>
@@ -233,7 +236,7 @@ const ProductDetails = (props) => {
                   {colorVs.map((colorV) => {
                     return (
                       <ToggleButton
-                        className="pdColorButton"
+                        className="pdColorButton product-toggles"
                         key={colorV.id}
                         value={colorV.color}
                         onClick={acSet}
@@ -279,7 +282,7 @@ const ProductDetails = (props) => {
               >
                 <Row>
                   {prodArr.map((prod) => {
-                    if (`:${prod.id}` !== product.id) {
+                    if (prod.id !== product.id) {
                       return (
                         <Col
                           md={3}

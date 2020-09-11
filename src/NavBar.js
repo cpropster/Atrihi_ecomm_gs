@@ -16,7 +16,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
   return (
     <>
       {auth.id ? (
-        <Navbar bg="light" sticky="top" expand="md">
+        <Navbar bg="light" sticky="top" expand="lg">
           <Navbar.Brand href="/#">
             <img
               className=""
@@ -134,7 +134,7 @@ const NavBar = ({ logout, login, auth, createAccount, brandSet, history }) => {
           </Navbar.Collapse>
         </Navbar>
       ) : (
-        <Navbar bg="light" sticky="top" expand="md">
+        <Navbar bg="light" sticky="top" expand="lg">
           <Navbar.Brand href="/#">
             <img
               className=""

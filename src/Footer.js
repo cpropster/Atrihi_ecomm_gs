@@ -23,7 +23,6 @@ const Footer = () => {
           </Nav.Item>
         </Nav>
         <main className="flex-fill" />
-        <fotter />
       </div>
     </Container>
   );

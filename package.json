@@ -32,12 +32,21 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@material-ui/core": "4.9.2",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "4.0.0-alpha.42",
+    "@types/draft-js": "0.10.38",
     "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "css-loader": "^3.5.3",
     "dotenv": "^8.2.0",
+    "draft-js": "0.11.4",
+    "draft-js-export-html": "^1.4.1",
+    "draft-js-mention-plugin": "^3.1.5",
+    "draft-js-plugins-editor": "^3.0.0",
+    "draft-js-plugins-utils": "2.0.3",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "jest": "^25.2.7",
@@ -50,7 +59,9 @@
     "popper.js": "^1.16.1",
     "precss": "^4.0.0",
     "react-bootstrap": "^1.0.1",
+    "react-draft-wysiwyg": "^1.14.5",
     "react-mapbox-gl": "^4.8.6",
-    "style-loader": "^1.2.1"
+    "style-loader": "^1.2.1",
+    "suneditor-react": "^2.13.3"
   }
 }

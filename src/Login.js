@@ -12,7 +12,7 @@ const Login = ({ login }) => {
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    login({ username, password }).catch((ex) =>
+    login({ username, password }).catch(() =>
       setError("Incorrect Username Or Password")
     );
   };
@@ -42,7 +42,7 @@ const Login = ({ login }) => {
             />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={onSubmit}>
+            <Button variant="primary" type="submit" onClick={onSubmit}>
               Login
             </Button>
           </Modal.Footer>

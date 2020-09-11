@@ -255,3 +255,36 @@ strong {
 .home-banner-text {
   color: white;
 }
+
+.navbar-header .navbar-toggle,
+.navbar-header .navbar-toggle:focus,
+.navbar-header .navbar-toggle:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.rich-editor {
+  padding: 10rem;
+}
+.rich-editor .rdw-editor-main {
+  background-color: #fff;
+}
+.rich-editor .DraftEditor-editorContainer {
+  padding: 1rem;
+}
+.draft-editor-wrapper {
+  border: 1px solid #ccc;
+}
+
+@media (min-width: 569px) {
+  .product-tile-container {
+    width: auto;
+    max-width: 200px;
+    height: auto;
+    max-height: 200px;
+  }
+}
+
+.product-card {
+  margin-bottom: 150px;
+}

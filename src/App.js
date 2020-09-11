@@ -261,10 +261,11 @@ const App = () => {
           )}
         />
         <Route
-          //change this route as well
-          path="/product:id"
-          render={(props) => <ProductDetails {...props} />}
+          exact
+          path="/product/:id"
+          component={(props) => <ProductDetails {...props} />}
         />
+
         <Route path="/contactUs" render={() => <ContactUs />} />
         <Route path="/refundPolicy" render={() => <RefundPolicy />} />
         <Route path="/privacyPolicy" render={() => <PrivacyPolicy />} />
