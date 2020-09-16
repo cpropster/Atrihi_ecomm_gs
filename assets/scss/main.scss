@@ -288,3 +288,23 @@ strong {
 .product-card {
   margin-bottom: 150px;
 }
+
+#dropdown-menu-align-right {
+  margin-right: 5vw;
+}
+
+.pagination ul {
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination li {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  width: 1em;
+  height: 1em;
+}
+
+.pagination li:hover {
+  color: lightgray;
+}

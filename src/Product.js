@@ -11,7 +11,7 @@ const Product = ({ product, productVariants }) => {
     return (
       <>
         <li key={product.id}>
-          <a href={`/#/product/:${product.id}`} className="product-card">
+          <a href={`/#/product/:${product.id}`}>
             <Card border="light" className="mb-5 product-tile-container">
               <Image
                 fluid

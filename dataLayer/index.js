@@ -40,8 +40,23 @@ const sync = async () => {
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL UNIQUE,
     brand VARCHAR(100) NOT NULL,
-    description VARCHAR(999) NOT NULL
+    description VARCHAR(999) NOT NULL,
+    date TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
+
+  CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+  RETURNS TRIGGER AS $$
+  BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER set_timestamp
+  BEFORE UPDATE ON products
+  FOR EACH ROW
+  EXECUTE PROCEDURE trigger_set_timestamp(); 
+  
   CREATE TABLE "productVariants"(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     color VARCHAR(999) NOT NULL,

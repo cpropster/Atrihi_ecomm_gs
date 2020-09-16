@@ -60,6 +60,7 @@
     "precss": "^4.0.0",
     "react-bootstrap": "^1.0.1",
     "react-draft-wysiwyg": "^1.14.5",
+    "react-js-pagination": "^3.0.3",
     "react-mapbox-gl": "^4.8.6",
     "style-loader": "^1.2.1",
     "suneditor-react": "^2.13.3"

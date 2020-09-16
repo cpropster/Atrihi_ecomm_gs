@@ -13,6 +13,7 @@ import Footer from "./Footer";
 import ContactUs from "./ContactUs";
 import RefundPolicy from "./RefundPolicy";
 import PrivacyPolicy from "./PrivacyPolicy";
+// import ScrollToTop from "./ScrollToTop";
 
 const headers = () => {
   const token = window.localStorage.getItem("token");
@@ -40,6 +41,10 @@ const App = () => {
     const response = await axios.get("/api/auth", headers());
     setAuth(response.data);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     axios
@@ -225,6 +230,7 @@ const App = () => {
         brandSet={brandSet}
         history={history}
       />
+      {/* <ScrollToTop> */}
       <Switch>
         <Route
           path="/productAdd"
@@ -244,6 +250,7 @@ const App = () => {
           render={() => (
             <BrandProducts
               products={products}
+              setProducts={setProducts}
               productVariants={productVariants}
               brand={brand}
               addToCart={addToCart}
@@ -256,6 +263,7 @@ const App = () => {
             <Products
               addToCart={addToCart}
               products={products}
+              setProducts={setProducts}
               productVariants={productVariants}
             />
           )}
@@ -272,6 +280,7 @@ const App = () => {
         <Route path="/about" render={() => <AboutUs />} />
         <Route path="/" render={() => <Home brandSet={brandSet} />} />
       </Switch>
+      {/* </ScrollToTop> */}
       <Footer />
     </>
   );
