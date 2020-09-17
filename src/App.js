@@ -249,8 +249,6 @@ const App = () => {
           path="/products:brand"
           render={() => (
             <BrandProducts
-              products={products}
-              setProducts={setProducts}
               productVariants={productVariants}
               brand={brand}
               addToCart={addToCart}

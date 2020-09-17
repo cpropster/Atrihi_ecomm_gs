@@ -18,6 +18,7 @@ const Product = ({ product, productVariants }) => {
                 src={productVariants.length && productVariant.image}
               />
               <span>{product.name}</span>
+              <span>{product.brand}</span>
               <span>
                 $
                 {productVariants.length &&
