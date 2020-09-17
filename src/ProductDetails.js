@@ -153,7 +153,11 @@ const ProductDetails = (props) => {
         .then((response) =>
           setActivePV(
             response.data.find((pv) => {
-              return pv.color === activeColor && pv.size === activeSize;
+              return (
+                pv.color === activeColor &&
+                pv.size === activeSize &&
+                pv.productId === product.id
+              );
             }) || {}
           )
         )
