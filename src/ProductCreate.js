@@ -82,7 +82,11 @@ const ProductCreate = ({
           placeholder="type description here...."
           onChange={setEditorState}
         />
-        <Button variant="primary" onClick={onSubmitProd}>
+        <Button
+          variant="primary"
+          onClick={onSubmitProd}
+          disabled={!name || !brand}
+        >
           Create Product
         </Button>
       </Form>
@@ -103,7 +107,7 @@ const ProductCreate = ({
             );
           })}
         </Form.Control>
-        <Button variant="primary" onClick={prodDel}>
+        <Button variant="primary" onClick={prodDel} disabled={!delProdId}>
           Delete Product
         </Button>
       </Form>
@@ -159,7 +163,13 @@ const ProductCreate = ({
             );
           })}
         </Form.Control>
-        <Button variant="primary" onClick={onSubmitDet}>
+        <Button
+          variant="primary"
+          onClick={onSubmitDet}
+          disabled={
+            !color || !sizes || !image || !price || !avail || !productId
+          }
+        >
           Create Product Variant
         </Button>
       </Form>
