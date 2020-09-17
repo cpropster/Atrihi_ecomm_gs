@@ -13,10 +13,12 @@ const Product = ({ product, productVariants }) => {
         <li key={product.id}>
           <a href={`/#/product/:${product.id}`}>
             <Card border="light" className="mb-5 product-tile-container">
-              <Image
-                fluid
-                src={productVariants.length && productVariant.image}
-              />
+              <div className="img-cont">
+                <Image
+                  fluid
+                  src={productVariants.length && productVariant.image}
+                />
+              </div>
               <span>{product.name}</span>
               <span>{product.brand}</span>
               <span>

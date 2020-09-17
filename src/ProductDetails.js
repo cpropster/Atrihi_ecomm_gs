@@ -108,7 +108,8 @@ const ProductDetails = (props) => {
               if (
                 !acc.find((colorV) => {
                   return productV.color === colorV.color;
-                })
+                }) &&
+                productV.productId === product.id
               ) {
                 acc.push(productV);
                 setActiveColor(acc[0].color);
@@ -190,7 +191,9 @@ const ProductDetails = (props) => {
     <Container fluid>
       <Row className="mt-4">
         <Col md={6}>
-          <Image src={activePV && activePV.image} fluid />
+          <div className="prod-det-cont">
+            <Image src={activePV && activePV.image} fluid />
+          </div>
         </Col>
         <Col md={6}>
           <Form>
@@ -227,7 +230,7 @@ const ProductDetails = (props) => {
             <br />
             {colorVs.length && (
               <>
-                <h5>Color {activeColor} </h5>
+                <h5>Color: {activeColor} </h5>
                 <ToggleButtonGroup
                   type="radio"
                   name="sizes"
@@ -280,13 +283,13 @@ const ProductDetails = (props) => {
                 key={i}
                 className="justify-content-center flex-md-row"
               >
-                <Row>
+                <Row className="d-flex justify-content-center">
                   {prodArr.map((prod) => {
                     if (prod.id !== product.id) {
                       return (
                         <Col
                           md={3}
-                          className="list-unstyled mx-auto"
+                          className="list-unstyled rel-prod-cont d-flex justify-content-center"
                           key={prod.id}
                         >
                           <Product

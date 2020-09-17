@@ -281,12 +281,32 @@ strong {
     width: auto;
     max-width: 200px;
     height: auto;
-    max-height: 200px;
+    max-height: 250px;
   }
 }
 
 .product-card {
   margin-bottom: 150px;
+}
+
+.img-cont img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+.prod-det-cont img {
+  width: 100%;
+  height: 80vh;
+  object-fit: contain;
+}
+
+.carousel-inner {
+  margin-bottom: 50px;
+}
+
+.carousel-indicators {
+  bottom: -50px;
 }
 
 #dropdown-menu-align-right {
@@ -307,4 +327,10 @@ strong {
 
 .pagination li:hover {
   color: lightgray;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
 }
