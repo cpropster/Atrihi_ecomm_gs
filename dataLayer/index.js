@@ -21,14 +21,8 @@ const {
 const sync = async () => {
   const sql = `
   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-  DROP TABLE IF EXISTS addresses;
-  DROP TABLE IF EXISTS "lineItems";
-  DROP TABLE IF EXISTS orders;
-  DROP TABLE IF EXISTS "productVariants";
-  DROP TABLE IF EXISTS products;
-  DROP TABLE IF EXISTS users;
 
-  CREATE TABLE users(
+  CREATE TABLE IF NOT EXISTS users(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username VARCHAR(100) NOT NULL UNIQUE CHECK (char_length(username) > 0),
     "firstName" VARCHAR(100) NOT NULL,
@@ -36,7 +30,7 @@ const sync = async () => {
     password VARCHAR(100) NOT NULL,
     role VARCHAR(20) DEFAULT 'USER'
   );
-  CREATE TABLE products(
+  CREATE TABLE IF NOT EXISTS products(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL UNIQUE,
     brand VARCHAR(100) NOT NULL,
@@ -57,7 +51,7 @@ const sync = async () => {
   FOR EACH ROW
   EXECUTE PROCEDURE trigger_set_timestamp(); 
   
-  CREATE TABLE "productVariants"(
+  CREATE TABLE IF NOT EXISTS "productVariants"(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     color VARCHAR(999) NOT NULL,
     size VARCHAR(100) NOT NULL,
@@ -66,25 +60,29 @@ const sync = async () => {
     avail INTEGER,
     "productId" UUID REFERENCES products(id) ON DELETE CASCADE NOT NULL
   );
-  CREATE TABLE orders(
+  CREATE TABLE IF NOT EXISTS orders(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     "userId" UUID REFERENCES users(id) NOT NULL,
     status VARCHAR(10) DEFAULT 'CART',
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
-  CREATE TABLE "lineItems"(
+  CREATE TABLE IF NOT EXISTS "lineItems"(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     "orderId" UUID REFERENCES orders(id) NOT NULL,
     "productId" UUID REFERENCES products(id) NOT NULL,
     quantity INTEGER DEFAULT 0
   );
-  CREATE TABLE addresses(
+  CREATE TABLE IF NOT EXISTS addresses(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     "userId" UUID REFERENCES users(id) NOT NULL,
     address VARCHAR(100) NOT NULL
   );
   `;
-  await client.query(sql);
+  try {
+    await client.query(sql);
+  } catch (error) {
+    console.log(error);
+  }
 
   const _users = {
     lucy: {
@@ -130,9 +128,9 @@ const sync = async () => {
     Object.values(_products).map((product) => products.create(product))
   );
 
-  const [lucy, moe, curly] = await Promise.all(
-    Object.values(_users).map((user) => users.create(user))
-  );
+  // const [lucy] = await Promise.all(
+  //   Object.values(_users).map((user) => users.create(user))
+  // );
 
   const userMap = (await users.read()).reduce((acc, user) => {
     acc[user.username] = user;
