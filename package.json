@@ -47,7 +47,7 @@
     "draft-js-mention-plugin": "^3.1.5",
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-plugins-utils": "2.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "faker": "^4.1.0",
     "jest": "^25.2.7",
     "jquery": "^3.5.1",
